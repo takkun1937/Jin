@@ -1,0 +1,16 @@
+services:
+  jin:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: jin
+    entrypoint: "/bin/sh -c 'npm install && npm run dev'"
+    init: true
+    ports:
+      - 5173:5173
+    stdin_open: true
+    tty: true
+    volumes:
+      - .:/root/jin
+    working_dir: /root/jin
+    user: root

@@ -1,0 +1,39 @@
+{
+  "dockerComposeFile": ["./docker-compose.yml"],
+  "service": "jin",
+  "remoteUser": "root",
+  "workspaceFolder": "/root/jin/",
+  "shutdownAction": "none",
+  "customizations": {
+    "vscode": {
+      "settings": {
+        // setting.json values
+        "editor.tabSize": 2,
+        "editor.insertSpaces": false,
+        "editor.defaultFormatter": "esbenp.prettier-vscode"
+      },
+      "extensions": [
+        // base
+        "streetsidesoftware.code-spell-checker",
+        "GitHub.github-vscode-theme",
+        "PKief.material-icon-theme",
+        "shd101wyy.markdown-preview-enhanced",
+        "bierner.markdown-preview-github-styles",
+        "esbenp.prettier-vscode",
+        "bmalehorn.shell-syntax",
+        "foxundermoon.shell-format",
+        "vscodevim.vim",
+        "mosapride.zenkaku",
+        "GitHub.copilot",
+        "GitHub.copilot-chat",
+        "GitHub.copilot-labs",
+
+        // additional
+        "xabikos.JavaScriptSnippets",
+        "infeng.vscode-react-typescript",
+        "VisualStudioExptTeam.vscodeintellicode",
+        "bradlc.vscode-tailwindcss"
+      ]
+    }
+  }
+}
