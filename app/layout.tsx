@@ -29,11 +29,7 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <NextAuthProvider>
-            <ContentLayout>
-              <Header />
-              <Main>{children}</Main>
-              <Footer />
-            </ContentLayout>
+            <ContentLayout>{children}</ContentLayout>
           </NextAuthProvider>
         </NextIntlClientProvider>
       </body>
