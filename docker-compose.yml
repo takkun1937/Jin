@@ -7,7 +7,7 @@ services:
     entrypoint: "/bin/sh -c 'npm install && npm run dev'"
     init: true
     ports:
-      - 5173:5173
+      - 3000:3000
     stdin_open: true
     tty: true
     volumes:
