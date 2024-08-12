@@ -1,7 +1,7 @@
 import { ButtonHTMLAttributes } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  visual?: 'default' | 'white';
+  visual?: 'default' | 'white_red' | 'white_black';
 }
 
 export default function Button({
@@ -12,7 +12,8 @@ export default function Button({
 }: ButtonProps) {
   const visualClassNames = {
     default: 'bg-red-500 text-white',
-    white: 'bg-white text-red-500 border border-red-500',
+    white_red: 'bg-white text-red-500 border border-red-500',
+    white_black: 'bg-white text-black border border-black',
   };
 
   return (

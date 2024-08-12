@@ -4,5 +4,7 @@
   "logout": "ログアウト",
   "home": "ホーム",
   "post_article": "記事投稿",
+  "save_draft_article": "下書き保存",
+  "publish_article": "記事公開",
   "copy_right": "© 2024 Jin"
 }

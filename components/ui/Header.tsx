@@ -17,7 +17,7 @@ export default function Header() {
   }[] = [{ menuName: 'home', path: RoutePath.Home }];
 
   return (
-    <header className='flex flex-col justify-between h-[10%] pt-2 px-8 border-b-2 border-gray-300'>
+    <header className='fixed z-10 inset-x-0 top-0 flex flex-col justify-between h-24 pt-2 px-8 border-b-2 border-gray-300 bg-gray-50'>
       <div className='flex justify-between items-center'>
         <button
           className='px-2.5 py-1.5 rounded bg-red-400 font-bold text-4xl text-white'
@@ -26,13 +26,20 @@ export default function Header() {
           {t('app_name')}
         </button>
         {session ? (
-          <div>
-            <Button visual='white' onClick={() => signOut()} className='mr-2'>
+          <div className='flex gap-2'>
+            <Button visual='white_red' onClick={() => signOut()}>
               {t('logout')}
             </Button>
-            <Button onClick={() => router.push(RoutePath.PostArticle)}>
-              {t('post_article')}
-            </Button>
+            {pathname === RoutePath.PostArticle ? (
+              <>
+                <Button visual='white_black'>{t('save_draft_article')}</Button>
+                <Button>{t('publish_article')}</Button>
+              </>
+            ) : (
+              <Button onClick={() => router.push(RoutePath.PostArticle)}>
+                {t('post_article')}
+              </Button>
+            )}
           </div>
         ) : (
           <Button onClick={() => signIn()}>{t('login')}</Button>
