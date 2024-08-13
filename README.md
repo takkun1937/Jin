@@ -83,6 +83,7 @@
 | ライブラリ名 | バージョン | 用途 | ライセンス |  参考 | 補足 |
 | --- | --- | --- | --- | --- | --- |
 | axios | ^1.7.2| ログイン、コンテンツダウンロードなど | MIT | [Axios API](https://axios-http.com/docs/api_intro) |  |
+| dotenv-cli | ^7.4.2| 環境変数を分けるため | MIT | [dotenv-cli](https://github.com/entropitor/dotenv-cli#readme) |  |
 | jotai | ^2.9.0 | Reactアプリケーションのための状態管理ライブラリで、コンポーネント間の状態共有を容易にするため | MIT | [Jotai](https://jotai.org/) |  |
 | next-auth | ^4.24.7 | ログイン機能を実装するため | ISC | [NextAuth.js](https://next-auth.js.org/) |  |
 | next-intl | ^3.17.2 | ローカライズ対応のため | MIT | [next-intl](https://next-intl-docs.vercel.app/) |  |
