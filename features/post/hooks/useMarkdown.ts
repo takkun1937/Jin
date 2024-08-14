@@ -1,16 +1,17 @@
-import { useCallback, useState } from 'react';
+import { mdValueAtom } from '@/atoms';
+import { useSetAtom } from 'jotai';
+import { useCallback } from 'react';
 
 type UseMarkdownOptions = {
-  mdValue: string;
-  changeMdValue: (value: string) => void;
+  changeMdContent: (value: string) => void;
 };
 
 export const useMarkdown = (): UseMarkdownOptions => {
-  const [mdValue, setMdValue] = useState('');
+  const setMdValueAtom = useSetAtom(mdValueAtom);
 
-  const changeMdValue = useCallback((value: string) => {
-    setMdValue(value);
+  const changeMdContent = useCallback((value: string) => {
+    setMdValueAtom((prev) => ({ ...prev, content: value }));
   }, []);
 
-  return { mdValue, changeMdValue };
+  return { changeMdContent };
 };
