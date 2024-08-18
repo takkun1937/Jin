@@ -5,12 +5,18 @@ import { useTranslations } from 'next-intl';
 import Button from './Button';
 import { RoutePath } from '@/common/constants';
 import { usePathname, useRouter } from 'next/navigation';
+import { useModal } from '@/hooks/useModal';
+import Modal from './Modal';
 
 export default function Header() {
   const { data: session } = useSession();
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
+  const {
+    isShowModal: isShowLogoutModal,
+    toggleShowModal: toggleShowLogoutModal,
+  } = useModal();
   const headerMenu: {
     menuName: string;
     path: (typeof RoutePath)[keyof typeof RoutePath];
@@ -27,7 +33,10 @@ export default function Header() {
         </button>
         {session ? (
           <div className='flex gap-2'>
-            <Button visual='white_text_secondary' onClick={() => signOut()}>
+            <Button
+              visual='white_text_secondary'
+              onClick={() => toggleShowLogoutModal(true)}
+            >
               {t('logout')}
             </Button>
             {pathname === RoutePath.PostArticle ? (
@@ -63,6 +72,15 @@ export default function Header() {
             </button>
           ))}
       </div>
+      {/* Modalコンポーネント */}
+      <Modal
+        isShowModal={isShowLogoutModal}
+        title={t('logout')}
+        contents={t('logout_contents')}
+        positiveButtonText={t('logout')}
+        handleNegativeButtonClick={() => toggleShowLogoutModal(false)}
+        handlePositiveButtonClick={signOut}
+      ></Modal>
     </header>
   );
 }

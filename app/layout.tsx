@@ -29,6 +29,7 @@ export default async function RootLayout({
             <ContentLayout>{children}</ContentLayout>
           </NextAuthProvider>
         </NextIntlClientProvider>
+        <div id='modal_root'></div>
       </body>
     </html>
   );
