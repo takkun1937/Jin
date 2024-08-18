@@ -7,7 +7,6 @@ interface ModalProps extends HTMLAttributes<HTMLDivElement> {
   isShowModal: boolean;
   title: string;
   contents: string;
-  positiveButtonText?: string;
   handleNegativeButtonClick?: () => void;
   handlePositiveButtonClick?: () => void;
 }
@@ -16,7 +15,6 @@ export default function Modal({
   isShowModal,
   title,
   contents,
-  positiveButtonText,
   handleNegativeButtonClick,
   handlePositiveButtonClick,
   className,
@@ -36,7 +34,7 @@ export default function Modal({
       }`}
       {...props}
     >
-      <div className='flex flex-col gap-2 w-[30%] px-8 py-12 rounded bg-background'>
+      <div className='flex flex-col gap-2 min-w-[30%] px-8 py-12 rounded bg-background'>
         <p className='font_large'>{title}</p>
         <p>{contents}</p>
         <div className='flex justify-end gap-2'>
@@ -48,10 +46,8 @@ export default function Modal({
               {t('cancel')}
             </Button>
           )}
-          {positiveButtonText && handlePositiveButtonClick && (
-            <Button onClick={handlePositiveButtonClick}>
-              {positiveButtonText}
-            </Button>
+          {handlePositiveButtonClick && (
+            <Button onClick={handlePositiveButtonClick}>{t('ok')}</Button>
           )}
         </div>
       </div>

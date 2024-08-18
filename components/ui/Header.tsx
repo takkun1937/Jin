@@ -77,7 +77,6 @@ export default function Header() {
         isShowModal={isShowLogoutModal}
         title={t('logout')}
         contents={t('logout_contents')}
-        positiveButtonText={t('logout')}
         handleNegativeButtonClick={() => toggleShowLogoutModal(false)}
         handlePositiveButtonClick={signOut}
       ></Modal>
