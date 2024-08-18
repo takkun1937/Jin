@@ -1,9 +1,6 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import './globals.css';
-import Header from '@/components/ui/Header';
-import Main from '@/components/ui/Main';
-import Footer from '@/components/ui/Footer';
 import ContentLayout from '@/components/Layout/ContentLayout';
 import NextAuthProvider from '@/providers/NextAuth';
 import { getLocale, getMessages } from 'next-intl/server';

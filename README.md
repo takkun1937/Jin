@@ -87,6 +87,7 @@
 | jotai | ^2.9.0 | Reactアプリケーションのための状態管理ライブラリで、コンポーネント間の状態共有を容易にするため | MIT | [Jotai](https://jotai.org/) |  |
 | next-auth | ^4.24.7 | ログイン機能を実装するため | ISC | [NextAuth.js](https://next-auth.js.org/) |  |
 | next-intl | ^3.17.2 | ローカライズ対応のため | MIT | [next-intl](https://next-intl-docs.vercel.app/) |  |
+| swr | ^2.2.5 | csrでデータフェッチを行うため | MIT | [SWR](https://swr.vercel.app/ja/docs/getting-started) |  |
 | @uiw/react-md-editor | ^4.0.4 | マークダウンエディタを実装するため | MIT | [react-md-editor](https://uiwjs.github.io/react-md-editor/) |  |
 
 ### 4.2. DB

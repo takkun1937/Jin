@@ -17,22 +17,24 @@ export default function Header() {
   }[] = [{ menuName: 'home', path: RoutePath.Home }];
 
   return (
-    <header className='fixed z-10 inset-x-0 top-0 flex flex-col justify-between h-24 pt-2 px-8 border-b-2 border-gray-300 bg-gray-50'>
+    <header className='fixed z-10 inset-x-0 top-0 flex flex-col justify-between h-24 pt-2 px-8 border-b-2 border-gray_white bg-background'>
       <div className='flex justify-between items-center'>
         <button
-          className='px-2.5 py-1.5 rounded bg-red-400 font-bold text-4xl text-white'
+          className='px-2.5 py-1.5 rounded bg-primary font_extra_large text-white'
           onClick={() => router.push(RoutePath.Home)}
         >
           {t('app_name')}
         </button>
         {session ? (
           <div className='flex gap-2'>
-            <Button visual='white_red' onClick={() => signOut()}>
+            <Button visual='white_text_secondary' onClick={() => signOut()}>
               {t('logout')}
             </Button>
             {pathname === RoutePath.PostArticle ? (
               <>
-                <Button visual='white_black'>{t('save_draft_article')}</Button>
+                <Button visual='white_text_gray'>
+                  {t('save_draft_article')}
+                </Button>
                 <Button>{t('publish_article')}</Button>
               </>
             ) : (
@@ -52,8 +54,8 @@ export default function Header() {
               key={index}
               className={`px-3 py-1 font-bold ${
                 pathname === menu.path
-                  ? `border-b-4 border-red-500`
-                  : 'text-gray-500'
+                  ? `border-b-4 border-secondary`
+                  : 'text-gray_black'
               }`}
               onClick={() => router.push(`${menu.path}`)}
             >

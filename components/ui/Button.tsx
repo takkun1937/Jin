@@ -1,19 +1,19 @@
 import { ButtonHTMLAttributes } from 'react';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  visual?: 'default' | 'white_red' | 'white_black';
+  visual?: 'secondary' | 'white_text_secondary' | 'white_text_gray';
 }
 
 export default function Button({
-  visual = 'default',
+  visual = 'secondary',
   className,
   children,
   ...props
 }: ButtonProps) {
   const visualClassNames = {
-    default: 'bg-red-500 text-white',
-    white_red: 'bg-white text-red-500 border border-red-500',
-    white_black: 'bg-white text-black border border-black',
+    secondary: 'bg-secondary text-white',
+    white_text_secondary: 'bg-white text-secondary border border-secondary',
+    white_text_gray: 'bg-white text-gray_black border border-gray_black',
   };
 
   return (

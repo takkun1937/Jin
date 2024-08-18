@@ -8,3 +8,12 @@
     @apply h-full;
   }
 }
+
+@layer utilities {
+  .font_large {
+    @apply text-2xl font-bold;
+  }
+  .font_extra_large {
+    @apply text-4xl font-bold;
+  }
+}

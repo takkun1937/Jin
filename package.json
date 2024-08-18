@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "migrate:local": "dotenv -e .env.local -- npx prisma migrate dev"
+    "migrate:local": "dotenv -e .env.local -- npx prisma migrate dev",
+    "seed:local": "dotenv -e .env.local -- npx prisma db seed"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
@@ -19,7 +20,11 @@
     "next-auth": "^4.24.7",
     "next-intl": "^3.17.2",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "swr": "^2.2.5"
+  },
+  "prisma": {
+    "seed": "ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -30,6 +35,7 @@
     "postcss": "^8",
     "prisma": "^5.17.0",
     "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }
