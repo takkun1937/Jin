@@ -8,14 +8,12 @@ interface DropdownProps extends HTMLAttributes<HTMLSelectElement> {
 export default function Dropdown({
   hiddenOption,
   options,
-  className,
+  className = '',
   ...props
 }: DropdownProps) {
   return (
     <select
-      className={`px-3 py-1 rounded border border-gray_white focus:outline-none ${
-        className ? className : ''
-      }`}
+      className={`px-3 py-1 rounded border border-gray_white focus:outline-none ${className}`}
       {...props}
     >
       {hiddenOption && <option hidden>{hiddenOption}</option>}

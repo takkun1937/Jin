@@ -17,7 +17,7 @@ export default function Modal({
   contents,
   handleNegativeButtonClick,
   handlePositiveButtonClick,
-  className,
+  className = '',
   children,
   ...props
 }: ModalProps) {
@@ -29,9 +29,7 @@ export default function Modal({
 
   return ReactDOM.createPortal(
     <div
-      className={`fixed top-0 left-0 z-20 flex justify-center items-center w-full h-full bg-gray_black bg-opacity-50 ${
-        className ? className : ''
-      }`}
+      className={`fixed top-0 left-0 z-20 flex justify-center items-center w-full h-full bg-gray_black bg-opacity-50 ${className}`}
       {...props}
     >
       <div className='flex flex-col gap-2 min-w-[30%] px-8 py-12 rounded bg-background'>

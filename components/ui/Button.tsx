@@ -6,7 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function Button({
   visual = 'secondary',
-  className,
+  className = '',
   children,
   ...props
 }: ButtonProps) {
@@ -18,9 +18,7 @@ export default function Button({
 
   return (
     <button
-      className={`px-4 py-1 rounded font-bold ${visualClassNames[visual]} ${
-        className ? className : ''
-      }`}
+      className={`px-4 py-1 rounded font-bold ${visualClassNames[visual]} ${className}`}
       {...props}
     >
       {children}
