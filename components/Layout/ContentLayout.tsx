@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import Header from '../ui/Header';
 import Footer from '../ui/Footer';
 import Main from '../ui/Main';
+import Loading from '@/app/loading';
 
 export default function ContentLayout({
   children,
@@ -11,7 +12,9 @@ export default function ContentLayout({
   return (
     <div className='flex flex-col h-full'>
       <Header />
-      <Main>{children}</Main>
+      <Suspense fallback={<Loading />}>
+        <Main>{children}</Main>
+      </Suspense>
       <Footer />
     </div>
   );

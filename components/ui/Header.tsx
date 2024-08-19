@@ -7,9 +7,15 @@ import { RoutePath } from '@/common/constants';
 import { usePathname, useRouter } from 'next/navigation';
 import { useModal } from '@/hooks/useModal';
 import Modal from './Modal';
+import Loading from '@/app/loading';
+
+const headerMenu: {
+  menuName: string;
+  path: (typeof RoutePath)[keyof typeof RoutePath];
+}[] = [{ menuName: 'home', path: RoutePath.Home }];
 
 export default function Header() {
-  const { data: session } = useSession();
+  const { data: session, status } = useSession();
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
@@ -17,10 +23,10 @@ export default function Header() {
     isShowModal: isShowLogoutModal,
     toggleShowModal: toggleShowLogoutModal,
   } = useModal();
-  const headerMenu: {
-    menuName: string;
-    path: (typeof RoutePath)[keyof typeof RoutePath];
-  }[] = [{ menuName: 'home', path: RoutePath.Home }];
+
+  if (status === 'loading') {
+    return <Loading height='h-24' />;
+  }
 
   return (
     <header className='fixed z-10 inset-x-0 top-0 flex flex-col justify-between h-24 pt-2 px-8 border-b-2 border-gray_white bg-background'>
