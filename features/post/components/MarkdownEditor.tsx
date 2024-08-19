@@ -23,7 +23,7 @@ export default function MarkdownEditor() {
       <div className='flex gap-2'>
         <Input
           className='flex-1'
-          placeholder={t('article_title')}
+          placeholder={t('content_title')}
           onChange={onChangeMdTitle}
         />
         <Dropdown

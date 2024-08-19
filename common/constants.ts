@@ -1,8 +1,8 @@
 export const RoutePath = {
   Home: '/',
-  PostArticle: '/post-article',
+  PostContent: '/post-content',
 } as const;
 
 export const ApiPath = {
-  PostCategory: '/api/post-category',
+  PostCategory: '/api/content-category',
 } as const;

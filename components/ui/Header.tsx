@@ -21,7 +21,9 @@ export default function Header() {
   const pathname = usePathname();
   const {
     isShowModal: isShowLogoutModal,
+    isShowModal: isShowPostContentModal,
     toggleShowModal: toggleShowLogoutModal,
+    toggleShowModal: toggleShowPostContentModal,
   } = useModal();
 
   if (status === 'loading') {
@@ -45,16 +47,18 @@ export default function Header() {
             >
               {t('logout')}
             </Button>
-            {pathname === RoutePath.PostArticle ? (
+            {pathname === RoutePath.PostContent ? (
               <>
                 <Button visual='white_text_gray'>
-                  {t('save_draft_article')}
+                  {t('save_draft_content')}
                 </Button>
-                <Button>{t('publish_article')}</Button>
+                <Button onClick={() => toggleShowPostContentModal(true)}>
+                  {t('publish_content')}
+                </Button>
               </>
             ) : (
-              <Button onClick={() => router.push(RoutePath.PostArticle)}>
-                {t('post_article')}
+              <Button onClick={() => router.push(RoutePath.PostContent)}>
+                {t('post_content')}
               </Button>
             )}
           </div>
@@ -78,12 +82,20 @@ export default function Header() {
             </button>
           ))}
       </div>
-      {/* Modalコンポーネント */}
+      {/* ログアウトモーダル */}
       <Modal
         isShowModal={isShowLogoutModal}
         title={t('logout')}
-        contents={t('logout_contents')}
+        contents={t('logout_confirm_message')}
         handleNegativeButtonClick={() => toggleShowLogoutModal(false)}
+        handlePositiveButtonClick={signOut}
+      ></Modal>
+      {/* 記事投稿モーダル */}
+      <Modal
+        isShowModal={isShowPostContentModal}
+        title={t('post_content')}
+        contents={t('post_content_confirm_message')}
+        handleNegativeButtonClick={() => toggleShowPostContentModal(false)}
         handlePositiveButtonClick={signOut}
       ></Modal>
     </header>
