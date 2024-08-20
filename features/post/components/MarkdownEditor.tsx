@@ -10,13 +10,16 @@ import Dropdown from '@/components/ui/Dropdown';
 import useSWR from 'swr';
 import { ApiPath } from '@/common/constants';
 import { postCategoryFetcher } from '@/lib/axios';
+import { ChangeEvent } from 'react';
 
 export default function MarkdownEditor() {
   const { onChangeMdTitle, onChangeMdCategory, onChangeMdContent } =
     useMarkdown();
   const mdContentAtomValue = useAtomValue(mdValueAtom);
   const t = useTranslations();
-  const { data } = useSWR(ApiPath.PostCategory, postCategoryFetcher);
+  const { data } = useSWR(ApiPath.ContentCategory, postCategoryFetcher, {
+    fallbackData: [],
+  });
 
   return (
     <div className='flex flex-col gap-2 h-full'>
@@ -28,8 +31,11 @@ export default function MarkdownEditor() {
         />
         <Dropdown
           hiddenOption={t('select_category')}
-          options={data ?? []}
-          onChange={onChangeMdCategory}
+          options={data}
+          getOptionLabel={(option) => option.category}
+          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
+            onChangeMdCategory(e, data)
+          }
         />
       </div>
       <MDEditor

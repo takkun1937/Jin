@@ -4,5 +4,6 @@ export const RoutePath = {
 } as const;
 
 export const ApiPath = {
-  PostCategory: '/api/content-category',
+  Content: '/api/content',
+  ContentCategory: '/api/content-category',
 } as const;
