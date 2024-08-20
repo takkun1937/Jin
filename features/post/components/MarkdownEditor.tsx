@@ -34,7 +34,8 @@ export default function MarkdownEditor() {
           options={data}
           getOptionLabel={(option) => option.category}
           onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            onChangeMdCategory(e, data)
+            // hiddenOption分のindexを引く
+            onChangeMdCategory(data[e.target.selectedIndex - 1].id)
           }
         />
       </div>

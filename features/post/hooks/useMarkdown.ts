@@ -1,14 +1,10 @@
 import { mdValueAtom } from '@/atoms';
-import { ContentCategoryType } from '@/types';
 import { useSetAtom } from 'jotai';
 import { ChangeEvent, useCallback } from 'react';
 
 type UseMarkdownOptions = {
   onChangeMdTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeMdCategory: (
-    event: ChangeEvent<HTMLSelectElement>,
-    categoryList: ContentCategoryType[]
-  ) => void;
+  onChangeMdCategory: (categoryId: number) => void;
   onChangeMdContent: (value: string) => void;
 };
 
@@ -22,17 +18,9 @@ export const useMarkdown = (): UseMarkdownOptions => {
     []
   );
 
-  const onChangeMdCategory = useCallback(
-    (
-      event: ChangeEvent<HTMLSelectElement>,
-      categoryList: ContentCategoryType[]
-    ) => {
-      // hiddenOption分のindexを引いている
-      const categoryId = categoryList[event.target.selectedIndex - 1].id;
-      setMdValueAtom((prev) => ({ ...prev, categoryId: categoryId }));
-    },
-    []
-  );
+  const onChangeMdCategory = useCallback((categoryId: number) => {
+    setMdValueAtom((prev) => ({ ...prev, categoryId: categoryId }));
+  }, []);
 
   const onChangeMdContent = useCallback((value: string) => {
     setMdValueAtom((prev) => ({ ...prev, content: value }));
