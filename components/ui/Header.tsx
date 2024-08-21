@@ -1,13 +1,15 @@
 'use client';
 
-import { signIn, signOut, useSession } from 'next-auth/react';
+import { signIn, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Button from './Button';
-import { RoutePath } from '@/common/constants';
+import { ModalType, RoutePath } from '@/common/constants';
 import { usePathname, useRouter } from 'next/navigation';
-import { useModal } from '@/hooks/useModal';
-import Modal from './Modal';
 import Loading from '@/app/loading';
+import { useAtomValue, useSetAtom } from 'jotai';
+import { mdValueAtom, modalAtom } from '@/atoms';
+import { validateMdValue } from '@/common/utils';
+import ModalWrapper from '../modal/ModalWrapper';
 
 const headerMenu: {
   menuName: string;
@@ -19,12 +21,17 @@ export default function Header() {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  const {
-    isShowModal: isShowLogoutModal,
-    isShowModal: isShowPostContentModal,
-    toggleShowModal: toggleShowLogoutModal,
-    toggleShowModal: toggleShowPostContentModal,
-  } = useModal();
+  const mdValueAtomValue = useAtomValue(mdValueAtom);
+  const setModalTypeAtom = useSetAtom(modalAtom);
+
+  // 記事投稿ボタンクリック時の処理
+  const handlePostContentButtonClick = () => {
+    if (validateMdValue(mdValueAtomValue)) {
+      setModalTypeAtom(ModalType.PostContent);
+    } else {
+      setModalTypeAtom(ModalType.ValidateMdValueError);
+    }
+  };
 
   if (status === 'loading') {
     return <Loading height='h-24' />;
@@ -43,7 +50,9 @@ export default function Header() {
           <div className='flex gap-2'>
             <Button
               visual='white_text_secondary'
-              onClick={() => toggleShowLogoutModal(true)}
+              onClick={() => {
+                setModalTypeAtom(ModalType.Logout);
+              }}
             >
               {t('logout')}
             </Button>
@@ -52,7 +61,7 @@ export default function Header() {
                 <Button visual='white_text_gray'>
                   {t('save_draft_content')}
                 </Button>
-                <Button onClick={() => toggleShowPostContentModal(true)}>
+                <Button onClick={handlePostContentButtonClick}>
                   {t('publish_content')}
                 </Button>
               </>
@@ -82,22 +91,8 @@ export default function Header() {
             </button>
           ))}
       </div>
-      {/* ログアウトモーダル */}
-      <Modal
-        isShowModal={isShowLogoutModal}
-        title={t('logout')}
-        contents={t('logout_confirm_message')}
-        handleNegativeButtonClick={() => toggleShowLogoutModal(false)}
-        handlePositiveButtonClick={signOut}
-      ></Modal>
-      {/* 記事投稿モーダル */}
-      <Modal
-        isShowModal={isShowPostContentModal}
-        title={t('post_content')}
-        contents={t('post_content_confirm_message')}
-        handleNegativeButtonClick={() => toggleShowPostContentModal(false)}
-        handlePositiveButtonClick={signOut}
-      ></Modal>
+      {/* モーダル表示領域 */}
+      <ModalWrapper />
     </header>
   );
 }

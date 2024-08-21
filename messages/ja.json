@@ -12,5 +12,11 @@
   "publish_content": "記事公開",
   "content_title": "記事タイトル",
   "select_category": "カテゴリーを選択",
+  "validate_error": "バリデーションエラー",
+  "validate_md_error_message": "記事タイトル、記事内容、記事カテゴリーを入力してください。",
+  "success": "成功",
+  "success_message": "成功しました！",
+  "error": "エラー",
+  "error_message": "エラーが発生しました。",
   "copy_right": "© 2024 Jin"
 }
