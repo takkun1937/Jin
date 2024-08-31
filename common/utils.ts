@@ -4,6 +4,7 @@ import { ContentType } from '@/types';
 export const validateMdValue = (mdValue: ContentType): boolean => {
   if (
     mdValue.title !== '' &&
+    mdValue.title.length <= 255 &&
     mdValue.categoryId !== 0 &&
     mdValue.content !== ''
   ) {

@@ -21,7 +21,7 @@ export default function Modal({
   children,
   ...props
 }: ModalProps) {
-  const setModalTypeAtom = useSetAtom(modalAtom);
+  const setModalAtom = useSetAtom(modalAtom);
   const t = useTranslations();
 
   return (
@@ -29,13 +29,13 @@ export default function Modal({
       className={`flex flex-col gap-2 min-w-[30%] px-8 py-12 rounded bg-background ${className}`}
       {...props}
     >
-      <p className='font_large'>{title}</p>
+      <p className='font-lg'>{title}</p>
       <p>{contents}</p>
       <div className='flex justify-end gap-2'>
         {hasNegativeButton && (
           <Button
             visual='white_text_gray'
-            onClick={() => setModalTypeAtom(ModalType.None)}
+            onClick={() => setModalAtom(ModalType.None)}
           >
             {t('cancel')}
           </Button>

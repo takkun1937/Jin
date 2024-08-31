@@ -22,14 +22,14 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const mdValueAtomValue = useAtomValue(mdValueAtom);
-  const setModalTypeAtom = useSetAtom(modalAtom);
+  const setModalAtom = useSetAtom(modalAtom);
 
   // 記事投稿ボタンクリック時の処理
   const handlePostContentButtonClick = () => {
     if (validateMdValue(mdValueAtomValue)) {
-      setModalTypeAtom(ModalType.PostContent);
+      setModalAtom(ModalType.PostContent);
     } else {
-      setModalTypeAtom(ModalType.ValidateMdValueError);
+      setModalAtom(ModalType.ValidateMdValueError);
     }
   };
 
@@ -41,7 +41,7 @@ export default function Header() {
     <header className='fixed z-10 inset-x-0 top-0 flex flex-col justify-between h-24 pt-2 px-8 border-b-2 border-gray_white bg-background'>
       <div className='flex justify-between items-center'>
         <button
-          className='px-2.5 py-1.5 rounded bg-primary font_extra_large text-white'
+          className='px-2.5 py-1.5 rounded bg-primary font-xl text-white'
           onClick={() => router.push(RoutePath.Home)}
         >
           {t('app_name')}
@@ -51,7 +51,7 @@ export default function Header() {
             <Button
               visual='white_text_secondary'
               onClick={() => {
-                setModalTypeAtom(ModalType.Logout);
+                setModalAtom(ModalType.Logout);
               }}
             >
               {t('logout')}

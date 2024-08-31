@@ -18,15 +18,15 @@ const modal: Record<(typeof ModalType)[keyof typeof ModalType], JSX.Element> = {
 };
 
 export default function ModalWrapper() {
-  const modalTypeAtomValue = useAtomValue(modalAtom);
+  const modalAtomValue = useAtomValue(modalAtom);
 
-  if (modalTypeAtomValue === ModalType.None) {
+  if (modalAtomValue === ModalType.None) {
     return null;
   }
 
   return ReactDOM.createPortal(
     <div className='fixed top-0 left-0 z-20 flex justify-center items-center w-full h-full bg-gray_black bg-opacity-50'>
-      {modal[modalTypeAtomValue]}
+      {modal[modalAtomValue]}
     </div>,
     document.getElementById('modal_root') as HTMLElement
   );

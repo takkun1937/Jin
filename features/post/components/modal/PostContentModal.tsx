@@ -4,18 +4,22 @@ import Modal from '@/components/modal/Modal';
 import { postContent } from '@/lib/axios';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useTranslations } from 'next-intl';
+import { useRef } from 'react';
 
 export default function PostContentModal() {
   const t = useTranslations();
   const mdValueAtomValue = useAtomValue(mdValueAtom);
-  const setModalTypeAtom = useSetAtom(modalAtom);
+  const setModalAtom = useSetAtom(modalAtom);
+  const mdValueAtomValueRef = useRef(mdValueAtomValue);
 
   // 記事投稿処理
   const handlePositiveButtonClick = async () => {
-    if (await postContent(mdValueAtomValue)) {
-      setModalTypeAtom(ModalType.Success);
-    } else {
-      setModalTypeAtom(ModalType.Error);
+    mdValueAtomValueRef.current.published = true;
+    try {
+      await postContent(mdValueAtomValueRef.current);
+      setModalAtom(ModalType.Success);
+    } catch (error) {
+      setModalAtom(ModalType.Error);
     }
   };
 

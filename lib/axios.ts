@@ -1,25 +1,23 @@
 import { ApiPath } from '@/common/constants';
-import { ContentCategoryType, ContentType } from '@/types';
+import { GetContentCategoryResponse, PostContentRequest } from '@/types/api';
 import axios, { AxiosResponse } from 'axios';
 
 const axiosApi = axios.create({
   baseURL: process.env.BASE_URL,
+  headers: {
+    'Content-Type': 'application/json',
+  },
 });
 
 // 記事内容をDBに登録するAPI
-export const postContent = async (data: ContentType): Promise<boolean> => {
-  try {
-    const response = await axiosApi.post(ApiPath.Content, data);
-    console.log(response);
-    return true;
-  } catch (error) {
-    console.error(error);
-    return false;
-  }
+export const postContent = async (data: PostContentRequest) => {
+  return await axiosApi.post(ApiPath.Content, data);
 };
 
 // 記事カテゴリー一覧を取得するAPI
-export const postCategoryFetcher = (url: string) =>
+export const contentCategoryFetcher = (url: string) =>
   axiosApi
     .get(url)
-    .then((response: AxiosResponse<ContentCategoryType[]>) => response.data);
+    .then(
+      (response: AxiosResponse<GetContentCategoryResponse>) => response.data
+    );

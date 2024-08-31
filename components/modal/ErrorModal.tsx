@@ -6,14 +6,14 @@ import { ModalType } from '@/common/constants';
 
 export default function ErrorModal() {
   const t = useTranslations();
-  const setModalTypeAtom = useSetAtom(modalAtom);
+  const setModalAtom = useSetAtom(modalAtom);
 
   return (
     <Modal
       title={t('error')}
       contents={t('error_message')}
       hasNegativeButton={false}
-      handlePositiveButtonClick={() => setModalTypeAtom(ModalType.None)}
+      handlePositiveButtonClick={() => setModalAtom(ModalType.None)}
     />
   );
 }

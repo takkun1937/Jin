@@ -9,7 +9,7 @@ import Input from '@/components/ui/Input';
 import Dropdown from '@/components/ui/Dropdown';
 import useSWR from 'swr';
 import { ApiPath } from '@/common/constants';
-import { postCategoryFetcher } from '@/lib/axios';
+import { contentCategoryFetcher } from '@/lib/axios';
 import { ChangeEvent } from 'react';
 
 export default function MarkdownEditor() {
@@ -17,7 +17,7 @@ export default function MarkdownEditor() {
     useMarkdown();
   const mdContentAtomValue = useAtomValue(mdValueAtom);
   const t = useTranslations();
-  const { data } = useSWR(ApiPath.ContentCategory, postCategoryFetcher, {
+  const { data } = useSWR(ApiPath.ContentCategory, contentCategoryFetcher, {
     fallbackData: [],
   });
 
