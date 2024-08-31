@@ -1,4 +1,4 @@
-import { options } from '@/auth';
+import { authOptions } from '@/auth';
 import { ResponseErrorType } from '@/common/constants';
 import prisma from '@/lib/prisma';
 import { ErrorResponse, GetContentCategoryResponse } from '@/types/api';
@@ -10,7 +10,7 @@ export async function GET(): Promise<
   NextResponse<GetContentCategoryResponse | ErrorResponse>
 > {
   try {
-    const session = await getServerSession(options);
+    const session = await getServerSession(authOptions);
 
     // セッションが存在しない場合はエラーレスポンスを返却
     if (!session) {
@@ -24,7 +24,7 @@ export async function GET(): Promise<
     return NextResponse.json(categories);
   } catch (error) {
     return NextResponse.json(
-      { message: ResponseErrorType.InternalServerError.message },
+      { message: ResponseErrorType.InternalServerError.message, error },
       { status: ResponseErrorType.InternalServerError.status }
     );
   }

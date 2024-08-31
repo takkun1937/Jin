@@ -1,4 +1,4 @@
-import { options } from '@/auth';
+import { authOptions } from '@/auth';
 import { ResponseErrorType } from '@/common/constants';
 import { validateMdValue } from '@/common/utils';
 import prisma from '@/lib/prisma';
@@ -16,7 +16,7 @@ export async function POST(
 ): Promise<NextResponse<PostContentResponse | ErrorResponse>> {
   try {
     const body: PostContentRequest = await request.json();
-    const session = await getServerSession(options);
+    const session = await getServerSession(authOptions);
 
     // セッションが存在しない場合はエラーレスポンスを返却
     if (!session) {
@@ -47,7 +47,7 @@ export async function POST(
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(
-      { message: ResponseErrorType.InternalServerError.message },
+      { message: ResponseErrorType.InternalServerError.message, error },
       { status: ResponseErrorType.InternalServerError.status }
     );
   }
