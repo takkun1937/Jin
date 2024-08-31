@@ -4,19 +4,16 @@ import Modal from '@/components/modal/Modal';
 import { postContent } from '@/lib/axios';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useTranslations } from 'next-intl';
-import { useRef } from 'react';
 
-export default function PostContentModal() {
+export default function ConfirmDraftOverwriteModal() {
   const t = useTranslations();
   const mdValueAtomValue = useAtomValue(mdValueAtom);
   const setModalAtom = useSetAtom(modalAtom);
-  const mdValueAtomValueRef = useRef(mdValueAtomValue);
 
-  // 記事投稿処理
+  // 下書き保存処理
   const handlePositiveButtonClick = async () => {
-    mdValueAtomValueRef.current.published = true;
     try {
-      await postContent(mdValueAtomValueRef.current);
+      await postContent(mdValueAtomValue);
       setModalAtom(ModalType.Success);
     } catch (error) {
       setModalAtom(ModalType.Error);
@@ -25,8 +22,8 @@ export default function PostContentModal() {
 
   return (
     <Modal
-      title={t('publish_content')}
-      contents={t('publish_content_confirm_message')}
+      title={t('save_draft_content')}
+      contents={t('overwrite_draft_content_confirm_message')}
       handlePositiveButtonClick={handlePositiveButtonClick}
     />
   );

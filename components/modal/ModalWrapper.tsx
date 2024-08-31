@@ -7,6 +7,7 @@ import LogoutModal from '@/features/auth/components/modal/LogoutModal';
 import PostContentModal from '@/features/post/components/modal/PostContentModal';
 import SuccessModal from './SuccessModal';
 import ErrorModal from './ErrorModal';
+import ConfirmDraftOverwriteModal from '@/features/post/components/modal/ConfirmDraftOverwriteModal';
 
 const modal: Record<(typeof ModalType)[keyof typeof ModalType], JSX.Element> = {
   [ModalType.None]: <></>,
@@ -14,6 +15,7 @@ const modal: Record<(typeof ModalType)[keyof typeof ModalType], JSX.Element> = {
   [ModalType.Error]: <ErrorModal />,
   [ModalType.Logout]: <LogoutModal />,
   [ModalType.PostContent]: <PostContentModal />,
+  [ModalType.ConfirmDraftOverwrite]: <ConfirmDraftOverwriteModal />,
   [ModalType.ValidateMdValueError]: <ValidateMdValueErrorModal />,
 };
 

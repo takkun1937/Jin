@@ -1,6 +1,6 @@
-import { HTMLAttributes } from 'react';
+import { SelectHTMLAttributes } from 'react';
 
-interface DropdownProps<T> extends HTMLAttributes<HTMLSelectElement> {
+interface DropdownProps<T> extends SelectHTMLAttributes<HTMLSelectElement> {
   hiddenOption?: string;
   options: T[];
   getOptionLabel: (option: T) => string;

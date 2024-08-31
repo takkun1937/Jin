@@ -34,6 +34,29 @@ export async function POST(
       );
     }
 
+    // 下書き保存（publishedがfalse）の場合、既存の下書きを確認
+    if (!body.published) {
+      const existingDraft = await prisma.post.findFirst({
+        where: {
+          authorId: session.user.id,
+          published: false,
+        },
+      });
+
+      if (existingDraft) {
+        // 既存の下書きを更新
+        const updatedDraft = await prisma.post.update({
+          where: { id: existingDraft.id },
+          data: {
+            title: body.title,
+            content: body.content,
+            categoryId: body.categoryId,
+          },
+        });
+        return NextResponse.json(updatedDraft);
+      }
+    }
+
     // DBへの記事登録
     const result = await prisma.post.create({
       data: {

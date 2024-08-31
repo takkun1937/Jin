@@ -10,6 +10,7 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { mdValueAtom, modalAtom } from '@/atoms';
 import { validateMdValue } from '@/common/utils';
 import ModalWrapper from '../modal/ModalWrapper';
+import { postContent } from '@/lib/axios';
 
 const headerMenu: {
   menuName: string;
@@ -23,6 +24,15 @@ export default function Header() {
   const pathname = usePathname();
   const mdValueAtomValue = useAtomValue(mdValueAtom);
   const setModalAtom = useSetAtom(modalAtom);
+
+  // 下書き保存ボタンクリック時の処理
+  const handleSaveDraftButtonClick = async () => {
+    if (validateMdValue(mdValueAtomValue)) {
+      setModalAtom(ModalType.ConfirmDraftOverwrite);
+    } else {
+      setModalAtom(ModalType.ValidateMdValueError);
+    }
+  };
 
   // 記事投稿ボタンクリック時の処理
   const handlePostContentButtonClick = () => {
@@ -58,7 +68,10 @@ export default function Header() {
             </Button>
             {pathname === RoutePath.PostContent ? (
               <>
-                <Button visual='white_text_gray'>
+                <Button
+                  visual='white_text_gray'
+                  onClick={handleSaveDraftButtonClick}
+                >
                   {t('save_draft_content')}
                 </Button>
                 <Button onClick={handlePostContentButtonClick}>
@@ -67,9 +80,16 @@ export default function Header() {
               </>
             ) : (
               <Button onClick={() => router.push(RoutePath.PostContent)}>
-                {t('post_content')}
+                {t('create_content')}
               </Button>
             )}
+            <button>
+              <img
+                src={session.user.image ?? ''}
+                alt='user icon'
+                className='h-8 aspect-square rounded-full'
+              />
+            </button>
           </div>
         ) : (
           <Button onClick={() => signIn()}>{t('login')}</Button>

@@ -1,5 +1,5 @@
 import { authOptions } from '@/auth';
-import { ApiPath } from '@/common/constants';
+import { ApiPath, ModalType } from '@/common/constants';
 import MarkdownEditor from '@/features/post/components/MarkdownEditor';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';

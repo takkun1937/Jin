@@ -21,5 +21,6 @@ export const ModalType = {
   Error: 'error',
   Logout: 'logout',
   PostContent: 'postContent',
+  ConfirmDraftOverwrite: 'confirmDraftOverwrite',
   ValidateMdValueError: 'validateMdValueError',
 } as const;
