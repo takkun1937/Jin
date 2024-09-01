@@ -4,8 +4,8 @@ import { validateMdValue } from '@/common/utils';
 import prisma from '@/lib/prisma';
 import {
   ErrorResponse,
-  PostContentRequest,
-  PostContentResponse,
+  PostMyContentsRequest,
+  PostMyContentsResponse,
 } from '@/types/api';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
@@ -13,9 +13,9 @@ import { NextResponse } from 'next/server';
 // DBへ記事投稿内容の保存
 export async function POST(
   request: Request
-): Promise<NextResponse<PostContentResponse | ErrorResponse>> {
+): Promise<NextResponse<PostMyContentsResponse | ErrorResponse>> {
   try {
-    const body: PostContentRequest = await request.json();
+    const body: PostMyContentsRequest = await request.json();
     const session = await getServerSession(authOptions);
 
     // セッションが存在しない場合はエラーレスポンスを返却

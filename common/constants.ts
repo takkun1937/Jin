@@ -1,11 +1,12 @@
 export const RoutePath = {
   Home: '/',
+  MyPage: '/my-page',
   PostContent: '/post-content',
 } as const;
 
 export const ApiPath = {
   SignIn: '/api/auth/signin',
-  Content: '/api/content',
+  MyContents: '/api/my-contents',
   ContentCategory: '/api/content-category',
 } as const;
 

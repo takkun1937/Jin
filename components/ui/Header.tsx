@@ -10,7 +10,6 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { mdValueAtom, modalAtom } from '@/atoms';
 import { validateMdValue } from '@/common/utils';
 import ModalWrapper from '../modal/ModalWrapper';
-import { postContent } from '@/lib/axios';
 
 const headerMenu: {
   menuName: string;
@@ -83,7 +82,7 @@ export default function Header() {
                 {t('create_content')}
               </Button>
             )}
-            <button>
+            <button onClick={() => router.push(RoutePath.MyPage)}>
               <img
                 src={session.user.image ?? ''}
                 alt='user icon'
