@@ -1,15 +1,3 @@
-// DBに登録されている記事の型
-export type PostModel = {
-  id: number;
-  createdAt: Date;
-  updatedAt: Date;
-  title: string;
-  content: string;
-  published: boolean;
-  authorId: string;
-  categoryId: number;
-};
-
 // 投稿する記事の型
 export type PostContentType = {
   title: string;
@@ -19,10 +7,11 @@ export type PostContentType = {
 };
 
 // 取得した記事の型
-export type ContentType = {
+export type ListContentType = {
   id: number;
   title: string;
-  categoryId: number;
-  content: string;
+  category: string;
+  userImage: string | null;
   published: boolean;
+  updatedAt: Date;
 };

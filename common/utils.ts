@@ -1,4 +1,4 @@
-import { ContentType, PostContentType, PostModel } from '@/types';
+import { PostContentType } from '@/types';
 
 // 記事内容のバリデーション
 export const validateMdValue = (mdValue: PostContentType): boolean => {
@@ -12,17 +12,4 @@ export const validateMdValue = (mdValue: PostContentType): boolean => {
   } else {
     return false;
   }
-};
-
-// PostModelの型を変換する
-export const transformContentType = (contents: PostModel[]): ContentType[] => {
-  return contents.map((content) => {
-    return {
-      id: content.id,
-      title: content.title,
-      categoryId: content.categoryId,
-      content: content.content,
-      published: content.published,
-    };
-  });
 };

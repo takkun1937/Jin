@@ -19,6 +19,7 @@ const config: Config = {
         background: '#F9FAFB',
         gray_white: '#D1D5DB',
         gray_black: '#374151',
+        surface: '#edeeee',
       },
     },
   },

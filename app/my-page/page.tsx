@@ -1,8 +1,7 @@
 import { authOptions } from '@/auth';
 import { ApiPath } from '@/common/constants';
-import { transformContentType } from '@/common/utils';
 import ContentList from '@/features/contents/components/ContentList';
-import prisma from '@/lib/prisma';
+import { getMyContents } from '@/actions/content';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
@@ -14,20 +13,11 @@ export default async function MyPage() {
     redirect(ApiPath.SignIn);
   }
 
-  const myContents = await prisma.post.findMany({
-    where: {
-      authorId: session.user.id,
-    },
-    orderBy: {
-      updatedAt: 'desc',
-    },
-  });
-
-  const contents = transformContentType(myContents);
+  const myContents = await getMyContents(session.user.id);
 
   return (
     <div className='px-8 py-6'>
-      <ContentList contents={contents} />
+      <ContentList contents={myContents} />
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { PostContentType, PostModel } from '.';
+import { PostContentType } from '.';
 
 // DBから記事カテゴリ一覧取得レスポンス
 export type GetContentCategoryResponse = {
@@ -8,7 +8,16 @@ export type GetContentCategoryResponse = {
 
 // DBへ記事投稿内容の保存リクエストレスポンス
 export type PostMyContentsRequest = PostContentType;
-export type PostMyContentsResponse = PostModel;
+export type PostMyContentsResponse = {
+  id: number;
+  createdAt: Date;
+  updatedAt: Date;
+  title: string;
+  content: string;
+  published: boolean;
+  authorId: string;
+  categoryId: number;
+};
 
 export type ErrorResponse = {
   message: string;

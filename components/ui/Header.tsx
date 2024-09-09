@@ -86,7 +86,7 @@ export default function Header() {
               <img
                 src={session.user.image ?? ''}
                 alt='user icon'
-                className='h-8 aspect-square rounded-full'
+                className='user-image'
               />
             </button>
           </div>
