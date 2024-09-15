@@ -2,9 +2,9 @@ import Grid from '@/components/ui/Grid';
 import ContentCard from './ui/ContentCard';
 import { ListContentType } from '@/types';
 
-type ContentListProps = {
+interface ContentListProps {
   contents: ListContentType[];
-};
+}
 
 export default function ContentList(props: ContentListProps) {
   return (

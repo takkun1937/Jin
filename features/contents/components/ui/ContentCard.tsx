@@ -1,8 +1,9 @@
 import { ListContentType } from '@/types';
+import Image from 'next/image';
 
-type ContentCardProps = {
+interface ContentCardProps {
   content: ListContentType;
-};
+}
 
 export default function ContentCard(props: ContentCardProps) {
   const content = props.content;
@@ -15,10 +16,12 @@ export default function ContentCard(props: ContentCardProps) {
   return (
     <div className='flex flex-col gap-2 px-6 py-4 rounded border-2 border-gray_white bg-white cursor-pointer'>
       <div className='flex gap-2 items-center'>
-        <img
+        <Image
           src={content.userImage ?? ''}
           alt='user image'
-          className='user-image'
+          width={32}
+          height={32}
+          className='rounded-full'
         />
         <p>{contentUpdatedAt}</p>
       </div>

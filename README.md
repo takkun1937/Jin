@@ -84,11 +84,15 @@
 | --- | --- | --- | --- | --- | --- |
 | axios | ^1.7.2| ログイン、コンテンツダウンロードなど | MIT | [Axios API](https://axios-http.com/docs/api_intro) |  |
 | dotenv-cli | ^7.4.2| 環境変数を分けるため | MIT | [dotenv-cli](https://github.com/entropitor/dotenv-cli#readme) |  |
+| eslint-config-prettier | ^9.1.0 | ESLintとPrettierの競合を解決するため | MIT | [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) |  |
+| prettier | ^3.3.3 | コードフォーマットを整えるため | MIT | [prettier](https://prettier.io/) |  |
 | jotai | ^2.9.0 | Reactアプリケーションのための状態管理ライブラリで、コンポーネント間の状態共有を容易にするため | MIT | [Jotai](https://jotai.org/) |  |
 | next-auth | ^4.24.7 | ログイン機能を実装するため | ISC | [NextAuth.js](https://next-auth.js.org/) |  |
 | next-auth/prisma-adapter | ^1.0.7 | NextAuthとprismaの連携を行うため | ISC | [Auth.js](https://authjs.dev/) |  |
 | next-intl | ^3.17.2 | ローカライズ対応のため | MIT | [next-intl](https://next-intl-docs.vercel.app/) |  |
 | swr | ^2.2.5 | csrでデータフェッチを行うため | MIT | [SWR](https://swr.vercel.app/ja/docs/getting-started) |  |
+| @typescript-eslint/eslint-plugin | ^8.5.0 | typescriptの推奨ルールを提供するため | View | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/) |  |
+| @typescript-eslint/parser | ^8.5.0 | typescriptを解析するため | View | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/) |  |
 | @uiw/react-md-editor | ^4.0.4 | マークダウンエディタを実装するため | MIT | [react-md-editor](https://uiwjs.github.io/react-md-editor/) |  |
 
 ### 4.2. DB

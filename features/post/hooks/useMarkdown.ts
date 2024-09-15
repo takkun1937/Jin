@@ -2,20 +2,14 @@ import { mdValueAtom } from '@/atoms';
 import { useSetAtom } from 'jotai';
 import { ChangeEvent, useCallback, useEffect } from 'react';
 
-type UseMarkdownOptions = {
-  onChangeMdTitle: (event: ChangeEvent<HTMLInputElement>) => void;
-  onChangeMdCategory: (categoryId: number) => void;
-  onChangeMdContent: (value: string) => void;
-};
-
-export const useMarkdown = (): UseMarkdownOptions => {
+export const useMarkdown = () => {
   const setMdValueAtom = useSetAtom(mdValueAtom);
 
   const onChangeMdTitle = useCallback(
     (event: ChangeEvent<HTMLInputElement>) => {
       setMdValueAtom((prev) => ({ ...prev, title: event.target.value }));
     },
-    []
+    [],
   );
 
   const onChangeMdCategory = useCallback((categoryId: number) => {

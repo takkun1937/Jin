@@ -16,7 +16,4 @@
   .font-xl {
     @apply text-4xl font-bold;
   }
-  .user-image {
-    @apply h-8 aspect-square rounded-full;
-  }
 }

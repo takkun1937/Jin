@@ -10,6 +10,7 @@ import { useAtomValue, useSetAtom } from 'jotai';
 import { mdValueAtom, modalAtom } from '@/atoms';
 import { validateMdValue } from '@/common/utils';
 import ModalWrapper from '../modal/ModalWrapper';
+import Image from 'next/image';
 
 const headerMenu: {
   menuName: string;
@@ -83,10 +84,12 @@ export default function Header() {
               </Button>
             )}
             <button onClick={() => router.push(RoutePath.MyPage)}>
-              <img
+              <Image
                 src={session.user.image ?? ''}
                 alt='user icon'
-                className='user-image'
+                width={32}
+                height={32}
+                className='rounded-full'
               />
             </button>
           </div>

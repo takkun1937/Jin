@@ -19,6 +19,7 @@ export default function PostContentModal() {
       await postContent(mdValueAtomValueRef.current);
       setModalAtom(ModalType.Success);
     } catch (error) {
+      console.error(error);
       setModalAtom(ModalType.Error);
     }
   };

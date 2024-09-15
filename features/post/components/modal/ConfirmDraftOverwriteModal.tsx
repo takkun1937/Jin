@@ -16,6 +16,7 @@ export default function ConfirmDraftOverwriteModal() {
       await postContent(mdValueAtomValue);
       setModalAtom(ModalType.Success);
     } catch (error) {
+      console.error(error);
       setModalAtom(ModalType.Error);
     }
   };

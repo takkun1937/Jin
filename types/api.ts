@@ -8,7 +8,7 @@ export type GetContentCategoryResponse = {
 
 // DBへ記事投稿内容の保存リクエストレスポンス
 export type PostMyContentsRequest = PostContentType;
-export type PostMyContentsResponse = {
+export interface PostMyContentsResponse {
   id: number;
   createdAt: Date;
   updatedAt: Date;
@@ -17,8 +17,8 @@ export type PostMyContentsResponse = {
   published: boolean;
   authorId: string;
   categoryId: number;
-};
+}
 
-export type ErrorResponse = {
+export interface ErrorResponse {
   message: string;
-};
+}

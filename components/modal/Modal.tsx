@@ -18,7 +18,6 @@ export default function Modal({
   hasNegativeButton = true,
   handlePositiveButtonClick,
   className = '',
-  children,
   ...props
 }: ModalProps) {
   const setModalAtom = useSetAtom(modalAtom);

@@ -1,17 +1,17 @@
 // 投稿する記事の型
-export type PostContentType = {
+export interface PostContentType {
   title: string;
   categoryId: number;
   content: string;
   published: boolean;
-};
+}
 
 // 取得した記事の型
-export type ListContentType = {
+export interface ListContentType {
   id: number;
   title: string;
   category: string;
   userImage: string | null;
   published: boolean;
   updatedAt: Date;
-};
+}
