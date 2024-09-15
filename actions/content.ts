@@ -3,7 +3,7 @@ import { ListContentType } from '@/types';
 
 // 自分の記事一覧を取得
 export const getMyContents = async (
-  userId: string
+  userId: string,
 ): Promise<ListContentType[]> => {
   try {
     const postModel = await prisma.post.findMany({
@@ -31,6 +31,7 @@ export const getMyContents = async (
     });
     return myContents;
   } catch (error) {
+    console.log(error);
     return [];
   }
 };
