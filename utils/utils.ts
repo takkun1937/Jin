@@ -13,3 +13,12 @@ export const validateMdValue = (mdValue: PostContentType): boolean => {
     return false;
   }
 };
+
+// 日付のフォーマット
+export const formatDate = (date: Date): string => {
+  return date.toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+};

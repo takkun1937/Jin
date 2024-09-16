@@ -5,6 +5,7 @@ import ContentLayout from '@/components/Layout/ContentLayout';
 import NextAuthProvider from '@/providers/NextAuth';
 import { getLocale, getMessages } from 'next-intl/server';
 import { NextIntlClientProvider } from 'next-intl';
+import { TrpcProvider } from '@/providers/trpc';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -26,7 +27,9 @@ export default async function RootLayout({
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages}>
           <NextAuthProvider>
-            <ContentLayout>{children}</ContentLayout>
+            <TrpcProvider>
+              <ContentLayout>{children}</ContentLayout>
+            </TrpcProvider>
           </NextAuthProvider>
         </NextIntlClientProvider>
         <div id='modal_root'></div>

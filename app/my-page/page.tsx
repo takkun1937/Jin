@@ -1,7 +1,7 @@
 import { authOptions } from '@/auth';
 import { ApiPath } from '@/common/constants';
 import ContentList from '@/features/contents/components/ContentList';
-import { getMyContents } from '@/actions/content';
+import { createCaller } from '@/server/routers/_app';
 import { getServerSession } from 'next-auth';
 import { redirect } from 'next/navigation';
 
@@ -13,7 +13,8 @@ export default async function MyPage() {
     redirect(ApiPath.SignIn);
   }
 
-  const myContents = await getMyContents(session.user.id);
+  const caller = createCaller({});
+  const myContents = await caller.getMyContents(session.user.id);
 
   return (
     <div className='px-8 py-6'>

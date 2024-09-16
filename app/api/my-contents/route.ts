@@ -1,18 +1,18 @@
 import { authOptions } from '@/auth';
 import { ResponseErrorType } from '@/common/constants';
-import { validateMdValue } from '@/common/utils';
 import prisma from '@/lib/prisma';
 import {
   ErrorResponse,
   PostMyContentsRequest,
   PostMyContentsResponse,
 } from '@/types/api';
+import { validateMdValue } from '@/utils/utils';
 import { getServerSession } from 'next-auth';
 import { NextResponse } from 'next/server';
 
 // DBへ記事投稿内容の保存
 export async function POST(
-  request: Request
+  request: Request,
 ): Promise<NextResponse<PostMyContentsResponse | ErrorResponse>> {
   try {
     const body: PostMyContentsRequest = await request.json();
@@ -22,7 +22,7 @@ export async function POST(
     if (!session) {
       return NextResponse.json(
         { message: ResponseErrorType.Unauthorized.message },
-        { status: ResponseErrorType.Unauthorized.status }
+        { status: ResponseErrorType.Unauthorized.status },
       );
     }
 
@@ -30,7 +30,7 @@ export async function POST(
     if (!validateMdValue(body)) {
       return NextResponse.json(
         { message: ResponseErrorType.BadRequest.message },
-        { status: ResponseErrorType.BadRequest.status }
+        { status: ResponseErrorType.BadRequest.status },
       );
     }
 
@@ -71,7 +71,7 @@ export async function POST(
   } catch (error) {
     return NextResponse.json(
       { message: ResponseErrorType.InternalServerError.message, error },
-      { status: ResponseErrorType.InternalServerError.status }
+      { status: ResponseErrorType.InternalServerError.status },
     );
   }
 }

@@ -1,17 +1,13 @@
-import { ListContentType } from '@/types';
+import { AppRouter } from '@/server/routers/_app';
+import { inferProcedureOutput } from '@trpc/server';
 import Image from 'next/image';
 
 interface ContentCardProps {
-  content: ListContentType;
+  content: inferProcedureOutput<AppRouter['getMyContents']>[number];
 }
 
 export default function ContentCard(props: ContentCardProps) {
   const content = props.content;
-  const contentUpdatedAt = content.updatedAt.toLocaleDateString('ja-JP', {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-  });
 
   return (
     <div className='flex flex-col gap-2 px-6 py-4 rounded border-2 border-gray_white bg-white cursor-pointer'>
@@ -23,7 +19,7 @@ export default function ContentCard(props: ContentCardProps) {
           height={32}
           className='rounded-full'
         />
-        <p>{contentUpdatedAt}</p>
+        <p>{content.updatedAt}</p>
       </div>
       <p className='font-lg truncate'>{content.title}</p>
       <p className='w-fit px-1.5 bg-surface'>{content.category}</p>

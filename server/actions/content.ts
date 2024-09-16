@@ -1,10 +1,8 @@
 import prisma from '@/lib/prisma';
-import { ListContentType } from '@/types';
+import { formatDate } from '@/utils/utils';
 
 // 自分の記事一覧を取得
-export const getMyContents = async (
-  userId: string,
-): Promise<ListContentType[]> => {
+export const getMyContents = async (userId: string) => {
   try {
     const postModel = await prisma.post.findMany({
       where: {
@@ -26,7 +24,7 @@ export const getMyContents = async (
         category: content.category.category,
         userImage: content.author.image,
         published: content.published,
-        updatedAt: content.updatedAt,
+        updatedAt: formatDate(content.updatedAt),
       };
     });
     return myContents;

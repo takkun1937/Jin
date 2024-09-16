@@ -8,9 +8,9 @@ import { usePathname, useRouter } from 'next/navigation';
 import Loading from '@/app/loading';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { mdValueAtom, modalAtom } from '@/atoms';
-import { validateMdValue } from '@/common/utils';
 import ModalWrapper from '../modal/ModalWrapper';
 import Image from 'next/image';
+import { validateMdValue } from '@/utils/utils';
 
 const headerMenu: {
   menuName: string;
