@@ -21,5 +21,6 @@
   "server_error_message": "サーバーの不具合によりエラーが発生しました。",
   "get_content_category_error_message": "カテゴリーの取得に失敗しました。画面をリロードしてください。",
   "get_contents_error_message": "記事一覧の取得に失敗しました。画面をリロードしてください。",
+  "try_again": "Try again",
   "copy_right": "© 2024 Jin"
 }

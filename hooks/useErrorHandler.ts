@@ -13,13 +13,17 @@ export const useErrorHandler = () => {
   const handleError = useCallback(
     (error: unknown) => {
       console.log(error);
-      if (error instanceof TRPCClientError) {
+      if (error instanceof TRPCClientError || error instanceof Error) {
         switch (error.message) {
           case ErrorType.Unauthorized: {
             router.push(RoutePath.Login);
           }
           case ErrorType.GetContentCategory: {
             setModalAtom(ModalType.GetContentCategoryError);
+            break;
+          }
+          case ErrorType.GetMyContents: {
+            setModalAtom(ModalType.GetContentsError);
             break;
           }
           case ErrorType.ServerError: {
