@@ -6,18 +6,16 @@ import { useTranslations } from 'next-intl';
 import { ModalType } from '@/common/constants';
 
 interface ModalProps extends HTMLAttributes<HTMLDivElement> {
-  title?: string;
-  contents?: string;
-  hasNegativeButton?: boolean;
-  handlePositiveButtonClick?: () => void;
+  title: string;
+  contents: string;
+  handlePositiveButtonClick: () => void;
 }
 
 export default function Modal({
-  title = '',
-  contents = '',
-  hasNegativeButton = true,
+  title,
+  contents,
   handlePositiveButtonClick,
-  className = '',
+  className,
   ...props
 }: ModalProps) {
   const setModalAtom = useSetAtom(modalAtom);
@@ -31,17 +29,13 @@ export default function Modal({
       <p className='font-lg'>{title}</p>
       <p>{contents}</p>
       <div className='flex justify-end gap-2'>
-        {hasNegativeButton && (
-          <Button
-            visual='white_text_gray'
-            onClick={() => setModalAtom(ModalType.None)}
-          >
-            {t('cancel')}
-          </Button>
-        )}
-        {handlePositiveButtonClick && (
-          <Button onClick={handlePositiveButtonClick}>{t('ok')}</Button>
-        )}
+        <Button
+          visual='white_text_gray'
+          onClick={() => setModalAtom(ModalType.None)}
+        >
+          {t('cancel')}
+        </Button>
+        <Button onClick={handlePositiveButtonClick}>{t('ok')}</Button>
       </div>
     </div>
   );

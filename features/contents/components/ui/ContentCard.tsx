@@ -1,9 +1,10 @@
 import { AppRouter } from '@/server/routers/_app';
+import { formatDate } from '@/utils/utils';
 import { inferProcedureOutput } from '@trpc/server';
 import Image from 'next/image';
 
 interface ContentCardProps {
-  content: inferProcedureOutput<AppRouter['getMyContents']>[number];
+  content: inferProcedureOutput<AppRouter['content']['getMyContents']>[number];
 }
 
 export default function ContentCard(props: ContentCardProps) {
@@ -19,7 +20,7 @@ export default function ContentCard(props: ContentCardProps) {
           height={32}
           className='rounded-full'
         />
-        <p>{content.updatedAt}</p>
+        <p>{formatDate(content.updatedAt)}</p>
       </div>
       <p className='font-lg truncate'>{content.title}</p>
       <p className='w-fit px-1.5 bg-surface'>{content.category}</p>

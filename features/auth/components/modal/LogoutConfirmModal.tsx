@@ -2,7 +2,7 @@ import Modal from '@/components/modal/Modal';
 import { signOut } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 
-export default function LogoutModal() {
+export default function LogoutConfirmModal() {
   const t = useTranslations();
 
   return (

@@ -1,18 +1,16 @@
 import { SelectHTMLAttributes } from 'react';
 
-interface DropdownProps<T> extends SelectHTMLAttributes<HTMLSelectElement> {
+interface DropdownProps extends SelectHTMLAttributes<HTMLSelectElement> {
   hiddenOption?: string;
-  options: T[];
-  getOptionLabel: (option: T) => string;
+  options: string[];
 }
 
-export default function Dropdown<T>({
+export default function Dropdown({
   hiddenOption,
   options,
-  className = '',
-  getOptionLabel,
+  className,
   ...props
-}: DropdownProps<T>) {
+}: DropdownProps) {
   return (
     <select
       className={`px-3 py-1 rounded border border-gray_white focus:outline-none ${className}`}
@@ -20,7 +18,7 @@ export default function Dropdown<T>({
     >
       {hiddenOption && <option hidden>{hiddenOption}</option>}
       {options.map((option, index) => (
-        <option key={index}>{getOptionLabel(option)}</option>
+        <option key={index}>{option}</option>
       ))}
     </select>
   );

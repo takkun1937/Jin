@@ -1,16 +1,18 @@
 import { ModalType } from '@/common/constants';
-import { PostContentType } from '@/types';
+import {
+  initialPostContent,
+  postContentReducer,
+} from '@/reducers/postContentReducer';
 import { atom } from 'jotai';
+import { atomWithReducer } from 'jotai/utils';
 
 // Openするモーダルの種類を保持するAtom
 export const modalAtom = atom<(typeof ModalType)[keyof typeof ModalType]>(
-  ModalType.None
+  ModalType.None,
 );
 
-// 投稿記事内容の入力値を保持するAtom
-export const mdValueAtom = atom<PostContentType>({
-  title: '',
-  categoryId: 0,
-  content: '',
-  published: false,
-});
+// 新規投稿・保存記事内容の入力値を保持するAtom
+export const postContentReducerAtom = atomWithReducer(
+  initialPostContent,
+  postContentReducer,
+);

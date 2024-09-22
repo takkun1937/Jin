@@ -4,7 +4,7 @@ import { inferProcedureOutput } from '@trpc/server';
 import { AppRouter } from '@/server/routers/_app';
 
 interface ContentListProps {
-  contents: inferProcedureOutput<AppRouter['getMyContents']>;
+  contents: inferProcedureOutput<AppRouter['content']['getMyContents']>;
 }
 
 export default function ContentList(props: ContentListProps) {

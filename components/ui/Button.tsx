@@ -6,7 +6,7 @@ interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
 
 export default function Button({
   visual = 'secondary',
-  className = '',
+  className,
   children,
   ...props
 }: ButtonProps) {

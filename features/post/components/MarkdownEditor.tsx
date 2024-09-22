@@ -1,25 +1,19 @@
 'use client';
 
 import MDEditor from '@uiw/react-md-editor';
-import { useMarkdown } from '../hooks/useMarkdown';
-import { useAtomValue } from 'jotai';
-import { mdValueAtom } from '@/atoms';
+import { useAtom } from 'jotai';
+import { postContentReducerAtom } from '@/atoms';
 import { useTranslations } from 'next-intl';
 import Input from '@/components/ui/Input';
 import Dropdown from '@/components/ui/Dropdown';
-import useSWR from 'swr';
-import { ApiPath } from '@/common/constants';
-import { contentCategoryFetcher } from '@/lib/axios';
-import { ChangeEvent } from 'react';
+import { useMarkdownEditor } from '../hooks/useMarkdownEditor';
 
 export default function MarkdownEditor() {
-  const { onChangeMdTitle, onChangeMdCategory, onChangeMdContent } =
-    useMarkdown();
-  const mdContentAtomValue = useAtomValue(mdValueAtom);
   const t = useTranslations();
-  const { data } = useSWR(ApiPath.ContentCategory, contentCategoryFetcher, {
-    fallbackData: [],
-  });
+  const [postContentAtomValue, postContentDispatch] = useAtom(
+    postContentReducerAtom,
+  );
+  const { contentCategories } = useMarkdownEditor();
 
   return (
     <div className='flex flex-col gap-2 h-full'>
@@ -27,23 +21,34 @@ export default function MarkdownEditor() {
         <Input
           className='flex-1'
           placeholder={t('content_title')}
-          value={mdContentAtomValue.title}
-          onChange={onChangeMdTitle}
+          value={postContentAtomValue.title}
+          onChange={(e) =>
+            postContentDispatch({
+              type: 'changeTitle',
+              payload: e.target.value,
+            })
+          }
         />
         <Dropdown
           hiddenOption={t('select_category')}
-          options={data}
-          getOptionLabel={(option) => option.category}
+          options={contentCategories.map((category) => category.category)}
           // hiddenOption分のindexを引く
-          value={data[mdContentAtomValue.categoryId - 1]?.category ?? ''}
-          onChange={(e: ChangeEvent<HTMLSelectElement>) =>
-            onChangeMdCategory(data[e.target.selectedIndex - 1].id)
+          value={
+            contentCategories[postContentAtomValue.categoryId - 1]?.category
+          }
+          onChange={(e) =>
+            postContentDispatch({
+              type: 'changeCategory',
+              payload: contentCategories[e.target.selectedIndex - 1]?.id,
+            })
           }
         />
       </div>
       <MDEditor
-        value={mdContentAtomValue.content}
-        onChange={(value) => onChangeMdContent(value || '')}
+        value={postContentAtomValue.content}
+        onChange={(value) =>
+          postContentDispatch({ type: 'changeContent', payload: value ?? '' })
+        }
         style={{ flexGrow: 1 }}
       />
     </div>

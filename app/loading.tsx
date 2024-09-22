@@ -6,7 +6,7 @@ interface LoadingProps extends HTMLAttributes<HTMLDivElement> {
 
 export default function Loading({
   height = 'h-full',
-  className = '',
+  className,
   ...props
 }: LoadingProps) {
   return (

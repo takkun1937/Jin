@@ -7,10 +7,10 @@ import { ModalType, RoutePath } from '@/common/constants';
 import { usePathname, useRouter } from 'next/navigation';
 import Loading from '@/app/loading';
 import { useAtomValue, useSetAtom } from 'jotai';
-import { mdValueAtom, modalAtom } from '@/atoms';
+import { modalAtom, postContentReducerAtom } from '@/atoms';
 import ModalWrapper from '../modal/ModalWrapper';
 import Image from 'next/image';
-import { validateMdValue } from '@/utils/utils';
+import { validatePostContent } from '@/utils/utils';
 
 const headerMenu: {
   menuName: string;
@@ -22,24 +22,22 @@ export default function Header() {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  const mdValueAtomValue = useAtomValue(mdValueAtom);
+  const postContentAtomValue = useAtomValue(postContentReducerAtom);
   const setModalAtom = useSetAtom(modalAtom);
 
-  // 下書き保存ボタンクリック時の処理
-  const handleSaveDraftButtonClick = async () => {
-    if (validateMdValue(mdValueAtomValue)) {
-      setModalAtom(ModalType.ConfirmDraftOverwrite);
+  const handleSaveDraftButtonClick = () => {
+    if (validatePostContent(postContentAtomValue)) {
+      setModalAtom(ModalType.DraftOverwriteConfirm);
     } else {
-      setModalAtom(ModalType.ValidateMdValueError);
+      setModalAtom(ModalType.PostContentValidateError);
     }
   };
 
-  // 記事投稿ボタンクリック時の処理
   const handlePostContentButtonClick = () => {
-    if (validateMdValue(mdValueAtomValue)) {
+    if (validatePostContent(postContentAtomValue)) {
       setModalAtom(ModalType.PostContent);
     } else {
-      setModalAtom(ModalType.ValidateMdValueError);
+      setModalAtom(ModalType.PostContentValidateError);
     }
   };
 
@@ -61,7 +59,7 @@ export default function Header() {
             <Button
               visual='white_text_secondary'
               onClick={() => {
-                setModalAtom(ModalType.Logout);
+                setModalAtom(ModalType.LogoutConfirm);
               }}
             >
               {t('logout')}

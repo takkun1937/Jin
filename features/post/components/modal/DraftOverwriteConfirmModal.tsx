@@ -1,23 +1,25 @@
-import { mdValueAtom, modalAtom } from '@/atoms';
+import { modalAtom, postContentReducerAtom } from '@/atoms';
 import { ModalType } from '@/common/constants';
 import Modal from '@/components/modal/Modal';
-import { postContent } from '@/lib/axios';
+import { useErrorHandler } from '@/hooks/useErrorHandler';
+import { trpc } from '@/utils/trpc';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useTranslations } from 'next-intl';
 
-export default function ConfirmDraftOverwriteModal() {
+export default function DraftOverwriteConfirmModal() {
   const t = useTranslations();
-  const mdValueAtomValue = useAtomValue(mdValueAtom);
+  const postContentAtomValue = useAtomValue(postContentReducerAtom);
   const setModalAtom = useSetAtom(modalAtom);
+  const { handleError } = useErrorHandler();
+  const mutation = trpc.content.postContent.useMutation();
 
   // 下書き保存処理
   const handlePositiveButtonClick = async () => {
     try {
-      await postContent(mdValueAtomValue);
-      setModalAtom(ModalType.Success);
+      mutation.mutate(postContentAtomValue);
+      setModalAtom(ModalType.Completed);
     } catch (error) {
-      console.error(error);
-      setModalAtom(ModalType.Error);
+      handleError(error);
     }
   };
 

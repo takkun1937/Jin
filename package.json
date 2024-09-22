@@ -19,7 +19,6 @@
     "@trpc/react-query": "^11.0.0-rc.502",
     "@trpc/server": "^11.0.0-rc.502",
     "@uiw/react-md-editor": "^4.0.4",
-    "axios": "^1.7.2",
     "dotenv-cli": "^7.4.2",
     "jotai": "^2.9.0",
     "next": "14.2.5",
@@ -27,7 +26,7 @@
     "next-intl": "^3.17.2",
     "react": "^18",
     "react-dom": "^18",
-    "swr": "^2.2.5",
+    "superjson": "^2.2.1",
     "zod": "^3.23.8"
   },
   "prisma": {

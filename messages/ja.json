@@ -13,11 +13,13 @@
   "overwrite_draft_content_confirm_message": "下書き保存がすでに存在する場合は、保存内容を上書きします。よろしいですか？",
   "content_title": "記事タイトル",
   "select_category": "カテゴリーを選択",
-  "validate_error": "バリデーションエラー",
-  "validate_md_error_message": "記事タイトル、記事内容、記事カテゴリーを入力してください。",
+  "content_validate_error_message": "記事タイトル、記事内容、記事カテゴリーを入力してください。",
+  "validate_error_message": "不正なリクエストです。",
   "success": "成功",
   "success_message": "成功しました！",
   "error": "エラー",
-  "error_message": "エラーが発生しました。",
+  "server_error_message": "サーバーの不具合によりエラーが発生しました。",
+  "get_content_category_error_message": "カテゴリーの取得に失敗しました。画面をリロードしてください。",
+  "get_contents_error_message": "記事一覧の取得に失敗しました。画面をリロードしてください。",
   "copy_right": "© 2024 Jin"
 }

@@ -2,21 +2,27 @@ import ReactDOM from 'react-dom';
 import { useAtomValue } from 'jotai';
 import { modalAtom } from '@/atoms';
 import { ModalType } from '@/common/constants';
-import ValidateMdValueErrorModal from '@/features/post/components/modal/ValidateMdValueErrorModal';
-import LogoutModal from '@/features/auth/components/modal/LogoutModal';
 import PostContentModal from '@/features/post/components/modal/PostContentModal';
-import SuccessModal from './SuccessModal';
-import ErrorModal from './ErrorModal';
-import ConfirmDraftOverwriteModal from '@/features/post/components/modal/ConfirmDraftOverwriteModal';
+import LogoutConfirmModal from '@/features/auth/components/modal/LogoutConfirmModal';
+import DraftOverwriteConfirmModal from '@/features/post/components/modal/DraftOverwriteConfirmModal';
+import CompletedModal from './CompletedModal';
+import PostContentValidateErrorModal from '@/features/post/components/modal/PostContentValidateErrorModal';
+import ServerErrorModal from './ServerErrorModal';
+import GetContentCategoryErrorModal from '@/features/post/components/modal/GetContentCategoryErrorModal';
+import GetContentsErrorModal from '@/features/post/components/modal/GetContentsErrorModal';
+import ValidateErrorModal from './ValidateErrorModal';
 
 const modal: Record<(typeof ModalType)[keyof typeof ModalType], JSX.Element> = {
   [ModalType.None]: <></>,
-  [ModalType.Success]: <SuccessModal />,
-  [ModalType.Error]: <ErrorModal />,
-  [ModalType.Logout]: <LogoutModal />,
+  [ModalType.Completed]: <CompletedModal />,
+  [ModalType.ServerError]: <ServerErrorModal />,
+  [ModalType.GetContentCategoryError]: <GetContentCategoryErrorModal />,
+  [ModalType.GetContentsError]: <GetContentsErrorModal />,
+  [ModalType.LogoutConfirm]: <LogoutConfirmModal />,
   [ModalType.PostContent]: <PostContentModal />,
-  [ModalType.ConfirmDraftOverwrite]: <ConfirmDraftOverwriteModal />,
-  [ModalType.ValidateMdValueError]: <ValidateMdValueErrorModal />,
+  [ModalType.DraftOverwriteConfirm]: <DraftOverwriteConfirmModal />,
+  [ModalType.PostContentValidateError]: <PostContentValidateErrorModal />,
+  [ModalType.ValidateError]: <ValidateErrorModal />,
 };
 
 export default function ModalWrapper() {
@@ -30,6 +36,6 @@ export default function ModalWrapper() {
     <div className='fixed top-0 left-0 z-20 flex justify-center items-center w-full h-full bg-gray_black bg-opacity-50'>
       {modal[modalAtomValue]}
     </div>,
-    document.getElementById('modal_root') as HTMLElement
+    document.getElementById('modal_root') as HTMLElement,
   );
 }
