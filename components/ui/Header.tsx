@@ -3,14 +3,13 @@
 import { signIn, useSession } from 'next-auth/react';
 import { useTranslations } from 'next-intl';
 import Button from './Button';
-import { ModalType, RoutePath } from '@/common/constants';
+import { RoutePath } from '@/common/constants';
 import { usePathname, useRouter } from 'next/navigation';
 import Loading from '@/app/loading';
-import { useAtomValue, useSetAtom } from 'jotai';
-import { modalAtom, postContentReducerAtom } from '@/atoms';
-import ModalWrapper from '../modal/ModalWrapper';
 import Image from 'next/image';
-import { validatePostContent } from '@/utils/utils';
+import { useAuth } from '@/features/auth/hooks/useAuth';
+import { useContentCreate } from '@/features/contents/create/hooks/useContentCreate';
+import ModalWrapper from '../modal/ModalWrapper';
 
 const headerMenu: {
   menuName: string;
@@ -22,27 +21,12 @@ export default function Header() {
   const t = useTranslations();
   const router = useRouter();
   const pathname = usePathname();
-  const postContentAtomValue = useAtomValue(postContentReducerAtom);
-  const setModalAtom = useSetAtom(modalAtom);
-
-  const handleSaveDraftButtonClick = () => {
-    if (validatePostContent(postContentAtomValue)) {
-      setModalAtom(ModalType.DraftOverwriteConfirm);
-    } else {
-      setModalAtom(ModalType.PostContentValidateError);
-    }
-  };
-
-  const handlePostContentButtonClick = () => {
-    if (validatePostContent(postContentAtomValue)) {
-      setModalAtom(ModalType.PostContent);
-    } else {
-      setModalAtom(ModalType.PostContentValidateError);
-    }
-  };
+  const { showLogoutConfirmModal } = useAuth();
+  const { showDraftContentOverwriteConfirmModal, handleContentPostConfirm } =
+    useContentCreate();
 
   if (status === 'loading') {
-    return <Loading height='h-24' />;
+    return <Loading className='h-24' />;
   }
 
   return (
@@ -58,30 +42,28 @@ export default function Header() {
           <div className='flex gap-2'>
             <Button
               visual='white_text_secondary'
-              onClick={() => {
-                setModalAtom(ModalType.LogoutConfirm);
-              }}
+              onClick={showLogoutConfirmModal}
             >
-              {t('logout')}
+              {t('button.logout')}
             </Button>
-            {pathname === RoutePath.PostContent ? (
+            {pathname === RoutePath.MyContentPost ? (
               <>
                 <Button
                   visual='white_text_gray'
-                  onClick={handleSaveDraftButtonClick}
+                  onClick={showDraftContentOverwriteConfirmModal}
                 >
-                  {t('save_draft_content')}
+                  {t('button.save_draft_content')}
                 </Button>
-                <Button onClick={handlePostContentButtonClick}>
-                  {t('publish_content')}
+                <Button onClick={handleContentPostConfirm}>
+                  {t('button.post_content')}
                 </Button>
               </>
             ) : (
-              <Button onClick={() => router.push(RoutePath.PostContent)}>
-                {t('create_content')}
+              <Button onClick={() => router.push(RoutePath.MyContentPost)}>
+                {t('button.create_content')}
               </Button>
             )}
-            <button onClick={() => router.push(RoutePath.MyPage)}>
+            <button onClick={() => router.push(RoutePath.MyContentList)}>
               <Image
                 src={session.user.image ?? ''}
                 alt='user icon'
@@ -92,7 +74,7 @@ export default function Header() {
             </button>
           </div>
         ) : (
-          <Button onClick={() => signIn()}>{t('login')}</Button>
+          <Button onClick={() => signIn()}>{t('button.login')}</Button>
         )}
       </div>
       <div>
@@ -107,11 +89,10 @@ export default function Header() {
               }`}
               onClick={() => router.push(`${menu.path}`)}
             >
-              {t(`${menu.menuName}`)}
+              {t(`button.${menu.menuName}`)}
             </button>
           ))}
       </div>
-      {/* モーダル表示領域 */}
       <ModalWrapper />
     </header>
   );

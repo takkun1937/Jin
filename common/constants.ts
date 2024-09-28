@@ -1,27 +1,28 @@
 export const RoutePath = {
   Home: '/',
   Login: '/api/auth/signin',
-  MyPage: '/my-page',
-  PostContent: '/post-content',
+  MyContent: '/my-content',
+  MyContentEdit: '/my-content/edit',
+  MyContentList: '/my-content/list',
+  MyContentPost: '/my-content/post',
 } as const;
 
 export const ModalType = {
   None: 'none',
+  Confirm: 'confirm',
   Completed: 'completed',
-  ServerError: 'serverError',
-  GetContentCategoryError: 'getContentCategoryError',
-  GetContentsError: 'getContentsError',
-  LogoutConfirm: 'logoutConfirm',
+  Error: 'error',
+} as const;
+
+export const CompletedModalType = {
   PostContent: 'postContent',
-  DraftOverwriteConfirm: 'draftOverwriteConfirm',
-  PostContentValidateError: 'postContentValidateError',
-  ValidateError: 'validateError',
+  SaveDraftContent: 'saveDraftContent',
 } as const;
 
 export const ErrorType = {
   Unauthorized: 'Unauthorized',
   GetContentCategory: 'getContentCategory',
-  GetMyContents: 'getMyContents',
-  PostContentValidate: 'postContentValidate',
+  GetMyContentList: 'getMyContentList',
+  ValidPostContent: 'validPostContent',
   ServerError: 'serverError',
 };
