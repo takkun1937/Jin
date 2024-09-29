@@ -1,4 +1,6 @@
 import { modalAtom } from '@/atoms';
+import { useModalHandler } from '@/hooks/useModalHandler';
+import { trpc } from '@/utils/trpc';
 import { useSetAtom } from 'jotai';
 import { useTranslations } from 'next-intl';
 import { useCallback } from 'react';
@@ -6,11 +8,25 @@ import { useCallback } from 'react';
 export const useContentDelete = () => {
   const setModalAtom = useSetAtom(modalAtom);
   const t = useTranslations();
+  const deleteContentMutation = trpc.content.deleteContent.useMutation();
+  const { handleCompetedModal, handleErrorModal } = useModalHandler();
 
-  const deleteContent = useCallback(async (contentId: number) => {
-    console.log('delete content', contentId);
-    // TODO: 記事削除APIを呼び出す
-  }, []);
+  const deleteContent = useCallback(
+    async (contentId: number) => {
+      deleteContentMutation.mutate(
+        { contentId },
+        {
+          onSuccess: () => {
+            handleCompetedModal('deleteContent');
+          },
+          onError: (error) => {
+            handleErrorModal(error);
+          },
+        },
+      );
+    },
+    [handleCompetedModal, handleErrorModal, deleteContentMutation],
+  );
 
   const showContentDeleteConfirmModal = useCallback(
     (contentId: number) => {

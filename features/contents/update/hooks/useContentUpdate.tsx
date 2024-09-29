@@ -1,11 +1,16 @@
-import { modalAtom } from '@/atoms';
+import { contentReducerAtom, modalAtom } from '@/atoms';
+import { RoutePath } from '@/common/constants';
+import { CreateContentType } from '@/types';
 import { useSetAtom } from 'jotai';
 import { useTranslations } from 'next-intl';
+import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 
 export const useContentUpdate = () => {
   const setModalAtom = useSetAtom(modalAtom);
   const t = useTranslations();
+  const router = useRouter();
+  const contentDispatch = useSetAtom(contentReducerAtom);
 
   const updateContent = useCallback(async (contentId: number) => {
     console.log('update content', contentId);
@@ -26,5 +31,13 @@ export const useContentUpdate = () => {
     [updateContent, setModalAtom, t],
   );
 
-  return { showContentUpdateConfirmModal };
+  const handleContentEditNavigate = useCallback(
+    (content: CreateContentType, id: number) => {
+      contentDispatch({ type: 'changeContentObject', payload: content });
+      router.push(`${RoutePath.MyContentEdit}/${id}`);
+    },
+    [contentDispatch, router],
+  );
+
+  return { handleContentEditNavigate };
 };

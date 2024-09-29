@@ -1,5 +1,5 @@
 import { ModalType } from '@/common/constants';
-import { postContentSchema } from '@/server/schema/content';
+import { createContentSchema } from '@/server/schema/content';
 import { z } from 'zod';
 
 export interface ConfirmModalType {
@@ -13,6 +13,7 @@ export interface CompletedModalType {
   type: typeof ModalType.Completed;
   title: string;
   message: string;
+  handlePositiveButtonClick: () => void;
 }
 
 export interface ErrorModalType {
@@ -22,4 +23,4 @@ export interface ErrorModalType {
 }
 
 // 新規保存・投稿する記事の型
-export type CreateContentType = z.infer<typeof postContentSchema>;
+export type CreateContentType = z.infer<typeof createContentSchema>;

@@ -24,7 +24,7 @@ export default async function MyContent({
 
   return (
     <div className='px-8 py-6'>
-      <ButtonContainer contentId={content.id} />
+      <ButtonContainer content={content} />
       <ContentView content={content} />
     </div>
   );

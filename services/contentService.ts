@@ -38,6 +38,7 @@ export const getContentById = async (contentId: number) => {
       id: contentModel.id,
       title: contentModel.title,
       content: contentModel.content,
+      categoryId: contentModel.categoryId,
       category: contentModel.category.category,
       userImage: contentModel.author.image,
       published: contentModel.published,
@@ -125,7 +126,6 @@ export const saveDraftContent = async (
         published: false,
       },
     });
-    return;
   } catch (error) {
     console.log(error);
     throw new TRPCError({
@@ -151,12 +151,28 @@ export const postContent = async (
         published: true,
       },
     });
-    return;
   } catch (error) {
     console.log(error);
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
       message: ErrorType.ServerError,
+    });
+  }
+};
+
+// 記事の削除
+export const deleteContent = async (contentId: number) => {
+  try {
+    await prisma.post.delete({
+      where: {
+        id: contentId,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    throw new TRPCError({
+      code: 'INTERNAL_SERVER_ERROR',
+      message: ErrorType.DeleteContent,
     });
   }
 };

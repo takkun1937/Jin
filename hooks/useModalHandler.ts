@@ -8,15 +8,25 @@ import { useRouter } from 'next/navigation';
 import { useCallback } from 'react';
 import { ZodError } from 'zod';
 
-type CompletedModalType = 'postContent' | 'saveDraftContent';
+type CompletedModalType =
+  | 'postContent'
+  | 'saveDraftContent'
+  | 'deleteContent'
+  | 'updateContent';
 
 export const useModalHandler = () => {
   const router = useRouter();
   const t = useTranslations();
   const setModalAtom = useSetAtom(modalAtom);
 
+  const handleCompletedNavigate = useCallback(() => {
+    router.push(RoutePath.MyContentList);
+    router.refresh();
+  }, [router]);
+
   const handleCompetedModal = useCallback(
     (completedModalType: CompletedModalType) => {
+      console.log(completedModalType);
       switch (completedModalType) {
         case 'postContent': {
           setModalAtom({
@@ -24,6 +34,9 @@ export const useModalHandler = () => {
               type: 'completed',
               title: t('modal.title.post_content_completed'),
               message: t('modal.message.post_content_completed'),
+              handlePositiveButtonClick: () => {
+                handleCompletedNavigate();
+              },
             },
           });
           break;
@@ -34,6 +47,35 @@ export const useModalHandler = () => {
               type: 'completed',
               title: t('modal.title.save_draft_content_completed'),
               message: t('modal.message.save_draft_content_completed'),
+              handlePositiveButtonClick: () => {
+                handleCompletedNavigate();
+              },
+            },
+          });
+          break;
+        }
+        case 'deleteContent': {
+          setModalAtom({
+            modal: {
+              type: 'completed',
+              title: t('modal.title.delete_content_completed'),
+              message: t('modal.message.delete_content_completed'),
+              handlePositiveButtonClick: () => {
+                handleCompletedNavigate();
+              },
+            },
+          });
+          break;
+        }
+        case 'updateContent': {
+          setModalAtom({
+            modal: {
+              type: 'completed',
+              title: t('modal.title.update_content_completed'),
+              message: t('modal.message.update_content_completed'),
+              handlePositiveButtonClick: () => {
+                handleCompletedNavigate();
+              },
             },
           });
           break;
@@ -43,7 +85,7 @@ export const useModalHandler = () => {
         }
       }
     },
-    [setModalAtom, t],
+    [handleCompletedNavigate, setModalAtom, t],
   );
 
   const handleErrorModal = useCallback(
@@ -74,7 +116,27 @@ export const useModalHandler = () => {
             });
             break;
           }
-          case ErrorType.ValidPostContent: {
+          case ErrorType.DeleteContent: {
+            setModalAtom({
+              modal: {
+                type: 'error',
+                title: t('modal.title.delete_content_error'),
+                message: t('modal.message.delete_content_error'),
+              },
+            });
+            break;
+          }
+          case ErrorType.UpdateContent: {
+            setModalAtom({
+              modal: {
+                type: 'error',
+                title: t('modal.title.update_content_error'),
+                message: t('modal.message.update_content_error'),
+              },
+            });
+            break;
+          }
+          case ErrorType.ValidCreateContent: {
             setModalAtom({
               modal: {
                 type: 'error',
@@ -97,7 +159,7 @@ export const useModalHandler = () => {
         }
       } else if (error instanceof ZodError) {
         switch (error.issues[0].message) {
-          case ErrorType.ValidPostContent: {
+          case ErrorType.ValidCreateContent: {
             setModalAtom({
               modal: {
                 type: 'error',

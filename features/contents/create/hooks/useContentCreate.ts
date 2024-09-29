@@ -1,7 +1,7 @@
 import { contentReducerAtom, modalAtom } from '@/atoms';
 import { ErrorType } from '@/common/constants';
 import { useModalHandler } from '@/hooks/useModalHandler';
-import { postContentSchema } from '@/server/schema/content';
+import { createContentSchema } from '@/server/schema/content';
 import { CreateContentType } from '@/types';
 import { trpc } from '@/utils/trpc';
 import { useAtomValue, useSetAtom } from 'jotai';
@@ -13,17 +13,18 @@ export const useContentCreate = () => {
   const { handleCompetedModal, handleErrorModal } = useModalHandler();
   const setModalAtom = useSetAtom(modalAtom);
   const contentAtomValue = useAtomValue(contentReducerAtom);
-  const mutation = trpc.content.postContent.useMutation();
+  const postContentMutation = trpc.content.postContent.useMutation();
+  const saveDraftContentMutation = trpc.content.saveDraftContent.useMutation();
 
-  // 投稿記事内容のバリデーション
-  const validPostContent = useCallback(
+  // 保存記事内容のバリデーション
+  const validCreateContent = useCallback(
     (postContent: CreateContentType): boolean => {
       try {
-        postContentSchema.parse(postContent);
+        createContentSchema.parse(postContent);
         return true;
       } catch (error) {
         console.log(error);
-        handleErrorModal(new Error(ErrorType.ValidPostContent));
+        handleErrorModal(new Error(ErrorType.ValidCreateContent));
         return false;
       }
     },
@@ -31,36 +32,52 @@ export const useContentCreate = () => {
   );
 
   const saveDraftContent = useCallback(() => {
-    try {
-      mutation.mutate(contentAtomValue);
-      handleCompetedModal('saveDraftContent');
-    } catch (error) {
-      handleErrorModal(error);
-    }
-  }, [contentAtomValue, handleCompetedModal, handleErrorModal, mutation]);
-
-  const showDraftContentOverwriteConfirmModal = useCallback(() => {
-    setModalAtom({
-      modal: {
-        type: 'confirm',
-        title: t('modal.title.draft_content_overwrite_confirm'),
-        message: t('modal.message.draft_content_overwrite_confirm'),
-        handlePositiveButtonClick: saveDraftContent,
+    saveDraftContentMutation.mutate(contentAtomValue, {
+      onSuccess: () => {
+        handleCompetedModal('saveDraftContent');
+      },
+      onError: (error) => {
+        handleErrorModal(error);
       },
     });
-  }, [saveDraftContent, setModalAtom, t]);
+  }, [
+    contentAtomValue,
+    handleCompetedModal,
+    handleErrorModal,
+    saveDraftContentMutation,
+  ]);
+
+  const handleDraftContentOverwriteConfirm = useCallback(() => {
+    if (validCreateContent(contentAtomValue)) {
+      setModalAtom({
+        modal: {
+          type: 'confirm',
+          title: t('modal.title.draft_content_overwrite_confirm'),
+          message: t('modal.message.draft_content_overwrite_confirm'),
+          handlePositiveButtonClick: saveDraftContent,
+        },
+      });
+    }
+  }, [contentAtomValue, saveDraftContent, setModalAtom, t, validCreateContent]);
 
   const postContent = useCallback(() => {
-    try {
-      mutation.mutate(contentAtomValue);
-      handleCompetedModal('postContent');
-    } catch (error) {
-      handleErrorModal(error);
-    }
-  }, [contentAtomValue, handleCompetedModal, handleErrorModal, mutation]);
+    postContentMutation.mutate(contentAtomValue, {
+      onSuccess: () => {
+        handleCompetedModal('postContent');
+      },
+      onError: (error) => {
+        handleErrorModal(error);
+      },
+    });
+  }, [
+    contentAtomValue,
+    handleCompetedModal,
+    handleErrorModal,
+    postContentMutation,
+  ]);
 
   const handleContentPostConfirm = useCallback(() => {
-    if (validPostContent(contentAtomValue)) {
+    if (validCreateContent(contentAtomValue)) {
       setModalAtom({
         modal: {
           type: 'confirm',
@@ -70,7 +87,7 @@ export const useContentCreate = () => {
         },
       });
     }
-  }, [contentAtomValue, postContent, setModalAtom, t, validPostContent]);
+  }, [contentAtomValue, postContent, setModalAtom, t, validCreateContent]);
 
-  return { showDraftContentOverwriteConfirmModal, handleContentPostConfirm };
+  return { handleDraftContentOverwriteConfirm, handleContentPostConfirm };
 };

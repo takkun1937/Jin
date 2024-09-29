@@ -22,7 +22,7 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const { showLogoutConfirmModal } = useAuth();
-  const { showDraftContentOverwriteConfirmModal, handleContentPostConfirm } =
+  const { handleDraftContentOverwriteConfirm, handleContentPostConfirm } =
     useContentCreate();
 
   if (status === 'loading') {
@@ -50,7 +50,7 @@ export default function Header() {
               <>
                 <Button
                   visual='white_text_gray'
-                  onClick={showDraftContentOverwriteConfirmModal}
+                  onClick={handleDraftContentOverwriteConfirm}
                 >
                   {t('button.save_draft_content')}
                 </Button>

@@ -1,16 +1,18 @@
+import { inferProcedureOutput } from '@trpc/server';
 import ContentDeleteButton from '../delete/components/ui/ContentDeleteButton';
 import ContentEditButton from '../update/components/ui/ContentEditButton';
+import { AppRouter } from '@/server/routers/_app';
 
 interface ButtonContainerProps {
-  contentId: number;
+  content: inferProcedureOutput<AppRouter['content']['getContentById']>;
 }
 
-export default function ButtonContainer({ contentId }: ButtonContainerProps) {
+export default function ButtonContainer({ content }: ButtonContainerProps) {
   return (
     <div className='flex justify-end items-center mb-6'>
       <div className='flex gap-2'>
-        <ContentDeleteButton contentId={contentId} />
-        <ContentEditButton contentId={contentId} />
+        <ContentDeleteButton contentId={content.id} />
+        <ContentEditButton content={content} />
       </div>
     </div>
   );

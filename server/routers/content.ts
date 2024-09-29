@@ -1,4 +1,5 @@
 import {
+  deleteContent,
   getContentById,
   getContentCategory,
   getMyContentList,
@@ -8,7 +9,7 @@ import {
 import { router } from '../trpc';
 import { z, ZodError } from 'zod';
 import { protectedProcedure } from '../middleware';
-import { postContentSchema, saveDraftContentSchema } from '../schema/content';
+import { createContentSchema } from '../schema/content';
 import { ErrorType } from '@/common/constants';
 
 export const contentRouter = router({
@@ -35,7 +36,7 @@ export const contentRouter = router({
     }),
   // 非公開で記事を保存
   saveDraftContent: protectedProcedure
-    .input(saveDraftContentSchema)
+    .input(createContentSchema)
     .mutation(async (opts) => {
       const content = opts.input;
       const userId = opts.ctx.session.user.id;
@@ -43,7 +44,7 @@ export const contentRouter = router({
     }),
   // 記事の新規投稿・保存
   postContent: protectedProcedure
-    .input(postContentSchema)
+    .input(createContentSchema)
     .mutation(async (opts) => {
       try {
         const content = opts.input;
@@ -51,9 +52,16 @@ export const contentRouter = router({
         await postContent(content, userId);
       } catch (error) {
         if (error instanceof ZodError) {
-          error.issues[0].message = ErrorType.ValidPostContent;
+          error.issues[0].message = ErrorType.ValidCreateContent;
         }
         throw error;
       }
+    }),
+  // 記事の削除
+  deleteContent: protectedProcedure
+    .input(z.object({ contentId: z.number() }))
+    .mutation(async (opts) => {
+      const contentId = opts.input.contentId;
+      await deleteContent(contentId);
     }),
 });

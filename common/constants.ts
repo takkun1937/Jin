@@ -14,15 +14,12 @@ export const ModalType = {
   Error: 'error',
 } as const;
 
-export const CompletedModalType = {
-  PostContent: 'postContent',
-  SaveDraftContent: 'saveDraftContent',
-} as const;
-
 export const ErrorType = {
   Unauthorized: 'Unauthorized',
   GetContentCategory: 'getContentCategory',
   GetMyContentList: 'getMyContentList',
-  ValidPostContent: 'validPostContent',
+  ValidCreateContent: 'validCreateContent',
+  DeleteContent: 'deleteContent',
+  UpdateContent: 'updateContent',
   ServerError: 'serverError',
 };
