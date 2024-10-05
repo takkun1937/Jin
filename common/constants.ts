@@ -1,6 +1,7 @@
 export const RoutePath = {
   Home: '/',
   Login: '/api/auth/signin',
+  Content: '/content',
   MyContent: '/my-content',
   MyContentEdit: '/my-content/edit',
   MyContentList: '/my-content/list',

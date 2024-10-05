@@ -3,6 +3,77 @@ import prisma from '@/lib/prisma';
 import { ContentType } from '@/types';
 import { TRPCError } from '@trpc/server';
 
+export const getContentList = async () => {
+  try {
+    const postModel = await prisma.post.findMany({
+      where: {
+        published: true,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      include: {
+        author: true,
+        category: true,
+      },
+    });
+
+    const contents = postModel.map((content) => {
+      return {
+        id: content.id,
+        title: content.title,
+        category: content.category.category,
+        userImage: content.author.image,
+        published: content.published,
+        updatedAt: content.updatedAt,
+      };
+    });
+
+    return contents;
+  } catch (error) {
+    console.log(error);
+    throw new TRPCError({
+      code: 'INTERNAL_SERVER_ERROR',
+      message: ErrorType.ServerError,
+    });
+  }
+};
+
+export const getMyContentList = async (userId: string) => {
+  try {
+    const postModel = await prisma.post.findMany({
+      where: {
+        authorId: userId,
+      },
+      orderBy: {
+        updatedAt: 'desc',
+      },
+      include: {
+        author: true,
+        category: true,
+      },
+    });
+
+    const myContents = postModel.map((content) => {
+      return {
+        id: content.id,
+        title: content.title,
+        category: content.category.category,
+        userImage: content.author.image,
+        published: content.published,
+        updatedAt: content.updatedAt,
+      };
+    });
+    return myContents;
+  } catch (error) {
+    console.log(error);
+    throw new TRPCError({
+      code: 'INTERNAL_SERVER_ERROR',
+      message: ErrorType.GetMyContentList,
+    });
+  }
+};
+
 export const getContentCategory = async () => {
   try {
     const categories = await prisma.postCategory.findMany();
@@ -48,41 +119,6 @@ export const getContentById = async (contentId: number) => {
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
       message: ErrorType.ServerError,
-    });
-  }
-};
-
-export const getMyContentList = async (userId: string) => {
-  try {
-    const postModel = await prisma.post.findMany({
-      where: {
-        authorId: userId,
-      },
-      orderBy: {
-        updatedAt: 'desc',
-      },
-      include: {
-        author: true,
-        category: true,
-      },
-    });
-
-    const myContents = postModel.map((content) => {
-      return {
-        id: content.id,
-        title: content.title,
-        category: content.category.category,
-        userImage: content.author.image,
-        published: content.published,
-        updatedAt: content.updatedAt,
-      };
-    });
-    return myContents;
-  } catch (error) {
-    console.log(error);
-    throw new TRPCError({
-      code: 'INTERNAL_SERVER_ERROR',
-      message: ErrorType.GetMyContentList,
     });
   }
 };

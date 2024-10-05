@@ -2,24 +2,25 @@ import {
   deleteContent,
   getContentById,
   getContentCategory,
+  getContentList,
   getMyContentList,
   postContent,
   saveDraftContent,
   updateContent,
   updateDraftContent,
 } from '@/services/contentService';
-import { router } from '../trpc';
+import { procedure, router } from '../trpc';
 import { z, ZodError } from 'zod';
 import { protectedProcedure } from '../middleware';
 import { contentSchema } from '../schema/content';
 import { ErrorType } from '@/common/constants';
 
 export const contentRouter = router({
-  getContentCategory: protectedProcedure.query(async () => {
-    const categories = await getContentCategory();
-    return categories;
+  getContentList: procedure.query(async () => {
+    const data = await getContentList();
+    return data;
   }),
-  getContentById: protectedProcedure
+  getContentById: procedure
     .input(z.object({ contentId: z.number() }))
     .query(async (opts) => {
       const contentId = opts.input.contentId;
@@ -31,6 +32,17 @@ export const contentRouter = router({
     .query(async (opts) => {
       const userId = opts.input.userId;
       const data = await getMyContentList(userId);
+      return data;
+    }),
+  getContentCategory: protectedProcedure.query(async () => {
+    const categories = await getContentCategory();
+    return categories;
+  }),
+  getMyContentById: protectedProcedure
+    .input(z.object({ contentId: z.number() }))
+    .query(async (opts) => {
+      const contentId = opts.input.contentId;
+      const data = await getContentById(contentId);
       return data;
     }),
   saveDraftContent: protectedProcedure

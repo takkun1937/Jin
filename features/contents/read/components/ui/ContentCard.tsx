@@ -8,18 +8,26 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 interface ContentCardProps {
+  isMyContent: boolean;
   content: inferProcedureOutput<
     AppRouter['content']['getMyContentList']
   >[number];
 }
 
-export default function ContentCard({ content }: ContentCardProps) {
+export default function ContentCard({
+  isMyContent,
+  content,
+}: ContentCardProps) {
   const router = useRouter();
 
   return (
     <div
       className='flex flex-col gap-2 px-6 py-4 rounded border-2 border-gray_white bg-white cursor-pointer'
-      onClick={() => router.push(`${RoutePath.MyContent}/${content.id}`)}
+      onClick={() =>
+        router.push(
+          `${isMyContent ? `${RoutePath.MyContent}/${content.id}` : `${RoutePath.Content}/${content.id}`}`,
+        )
+      }
     >
       <div className='flex gap-2 items-center'>
         <Image

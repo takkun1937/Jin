@@ -17,7 +17,7 @@ export default async function MyContentList() {
 
   return (
     <div className='px-8 py-6'>
-      <ContentList contents={myContents} />
+      <ContentList isMyContent={true} contents={myContents} />
     </div>
   );
 }
