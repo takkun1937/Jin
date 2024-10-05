@@ -10,6 +10,7 @@ import Image from 'next/image';
 import { useAuth } from '@/features/auth/hooks/useAuth';
 import { useContentCreate } from '@/features/contents/create/hooks/useContentCreate';
 import ModalWrapper from '../modal/ModalWrapper';
+import { useContentUpdate } from '@/features/contents/update/hooks/useContentUpdate';
 
 const headerMenu: {
   menuName: string;
@@ -22,8 +23,10 @@ export default function Header() {
   const router = useRouter();
   const pathname = usePathname();
   const { showLogoutConfirmModal } = useAuth();
-  const { handleDraftContentOverwriteConfirm, handleContentPostConfirm } =
+  const { handleDraftContentSaveConfirm, handleContentPostConfirm } =
     useContentCreate();
+  const { handleDraftContentUpdateConfirm, handleContentUpdateConfirm } =
+    useContentUpdate();
 
   if (status === 'loading') {
     return <Loading className='h-24' />;
@@ -50,12 +53,24 @@ export default function Header() {
               <>
                 <Button
                   visual='white_text_gray'
-                  onClick={handleDraftContentOverwriteConfirm}
+                  onClick={handleDraftContentSaveConfirm}
                 >
                   {t('button.save_draft_content')}
                 </Button>
                 <Button onClick={handleContentPostConfirm}>
                   {t('button.post_content')}
+                </Button>
+              </>
+            ) : pathname.includes(RoutePath.MyContentEdit) ? (
+              <>
+                <Button
+                  visual='white_text_gray'
+                  onClick={handleDraftContentUpdateConfirm}
+                >
+                  {t('button.update_draft_content')}
+                </Button>
+                <Button onClick={handleContentUpdateConfirm}>
+                  {t('button.update')}
                 </Button>
               </>
             ) : (

@@ -19,7 +19,13 @@ export const modalAtom = atomWithReset<modalAtomType>({
 });
 
 // 新規投稿・保存記事内容の入力値を保持するAtom
-export const contentReducerAtom = atomWithReducer(
+export const createContentReducerAtom = atomWithReducer(
+  initialContent,
+  contentReducer,
+);
+
+// 更新記事内容の入力値を保持するAtom
+export const updateContentReducerAtom = atomWithReducer(
   initialContent,
   contentReducer,
 );

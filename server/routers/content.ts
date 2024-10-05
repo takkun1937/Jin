@@ -5,20 +5,20 @@ import {
   getMyContentList,
   postContent,
   saveDraftContent,
+  updateContent,
+  updateDraftContent,
 } from '@/services/contentService';
 import { router } from '../trpc';
 import { z, ZodError } from 'zod';
 import { protectedProcedure } from '../middleware';
-import { createContentSchema } from '../schema/content';
+import { contentSchema } from '../schema/content';
 import { ErrorType } from '@/common/constants';
 
 export const contentRouter = router({
-  // 記事のカテゴリー取得
   getContentCategory: protectedProcedure.query(async () => {
     const categories = await getContentCategory();
     return categories;
   }),
-  // idと一致する記事の内容取得
   getContentById: protectedProcedure
     .input(z.object({ contentId: z.number() }))
     .query(async (opts) => {
@@ -26,7 +26,6 @@ export const contentRouter = router({
       const data = await getContentById(contentId);
       return data;
     }),
-  // 自分の記事一覧取得
   getMyContentList: protectedProcedure
     .input(z.object({ userId: z.string() }))
     .query(async (opts) => {
@@ -34,17 +33,15 @@ export const contentRouter = router({
       const data = await getMyContentList(userId);
       return data;
     }),
-  // 非公開で記事を保存
   saveDraftContent: protectedProcedure
-    .input(createContentSchema)
+    .input(contentSchema)
     .mutation(async (opts) => {
       const content = opts.input;
       const userId = opts.ctx.session.user.id;
       await saveDraftContent(content, userId);
     }),
-  // 記事の新規投稿・保存
   postContent: protectedProcedure
-    .input(createContentSchema)
+    .input(contentSchema)
     .mutation(async (opts) => {
       try {
         const content = opts.input;
@@ -52,12 +49,31 @@ export const contentRouter = router({
         await postContent(content, userId);
       } catch (error) {
         if (error instanceof ZodError) {
-          error.issues[0].message = ErrorType.ValidCreateContent;
+          error.issues[0].message = ErrorType.ValidContent;
         }
         throw error;
       }
     }),
-  // 記事の削除
+  updateDraftContent: protectedProcedure
+    .input(
+      z.object({
+        contentId: z.number(),
+        content: contentSchema,
+      }),
+    )
+    .mutation(async (opts) => {
+      const contentId = opts.input.contentId;
+      const content = opts.input.content;
+      const userId = opts.ctx.session.user.id;
+      await updateDraftContent(content, contentId, userId);
+    }),
+  updateContent: protectedProcedure
+    .input(z.object({ contentId: z.number(), content: contentSchema }))
+    .mutation(async (opts) => {
+      const contentId = opts.input.contentId;
+      const content = opts.input.content;
+      await updateContent(content, contentId);
+    }),
   deleteContent: protectedProcedure
     .input(z.object({ contentId: z.number() }))
     .mutation(async (opts) => {

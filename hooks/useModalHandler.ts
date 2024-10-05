@@ -12,7 +12,8 @@ type CompletedModalType =
   | 'postContent'
   | 'saveDraftContent'
   | 'deleteContent'
-  | 'updateContent';
+  | 'updateContent'
+  | 'updateDraftContent';
 
 export const useModalHandler = () => {
   const router = useRouter();
@@ -136,7 +137,7 @@ export const useModalHandler = () => {
             });
             break;
           }
-          case ErrorType.ValidCreateContent: {
+          case ErrorType.ValidContent: {
             setModalAtom({
               modal: {
                 type: 'error',
@@ -159,7 +160,7 @@ export const useModalHandler = () => {
         }
       } else if (error instanceof ZodError) {
         switch (error.issues[0].message) {
-          case ErrorType.ValidCreateContent: {
+          case ErrorType.ValidContent: {
             setModalAtom({
               modal: {
                 type: 'error',

@@ -2,16 +2,33 @@
 
 import MDEditor from '@uiw/react-md-editor';
 import { useAtom } from 'jotai';
-import { contentReducerAtom } from '@/atoms';
+import { createContentReducerAtom, updateContentReducerAtom } from '@/atoms';
 import { useTranslations } from 'next-intl';
 import Input from '@/components/ui/Input';
 import Dropdown from '@/components/ui/Dropdown';
 import { useMarkdownEditor } from '../hooks/useMarkdownEditor';
 
-export default function MarkdownEditor() {
+interface MarkdownEditorProps {
+  isCreateContent: boolean; // 記事の新規作成か更新か判別するためのフラグ
+}
+
+export default function MarkdownEditor({
+  isCreateContent,
+}: MarkdownEditorProps) {
   const t = useTranslations();
-  const [contentAtomValue, contentDispatch] = useAtom(contentReducerAtom);
+  const [createContentAtomValue, createContentDispatch] = useAtom(
+    createContentReducerAtom,
+  );
+  const [updateContentAtomValue, updateContentDispatch] = useAtom(
+    updateContentReducerAtom,
+  );
   const { contentCategories } = useMarkdownEditor();
+  const contentDispatch = isCreateContent
+    ? createContentDispatch
+    : updateContentDispatch;
+  const contentAtomValue = isCreateContent
+    ? createContentAtomValue
+    : updateContentAtomValue;
 
   return (
     <div className='flex flex-col gap-2 h-full'>

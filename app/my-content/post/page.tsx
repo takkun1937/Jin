@@ -13,7 +13,7 @@ export default async function MyContentPost() {
 
   return (
     <div className='h-full px-4 py-3'>
-      <MarkdownEditor />
+      <MarkdownEditor isCreateContent={true} />
     </div>
   );
 }

@@ -9,11 +9,13 @@
     "home": "ホーム",
     "create_content": "新規作成",
     "save_draft_content": "非公開で保存",
+    "update_draft_content": "非公開で更新",
     "post_content": "記事公開",
     "ok": "OK",
     "cancel": "キャンセル",
     "delete": "削除",
     "edit": "編集",
+    "update": "更新",
     "try_again": "Try again"
   },
   "modal": {

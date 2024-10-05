@@ -1,38 +1,22 @@
-import { contentReducerAtom, modalAtom } from '@/atoms';
-import { ErrorType } from '@/common/constants';
+import { createContentReducerAtom, modalAtom } from '@/atoms';
 import { useModalHandler } from '@/hooks/useModalHandler';
-import { createContentSchema } from '@/server/schema/content';
-import { CreateContentType } from '@/types';
 import { trpc } from '@/utils/trpc';
 import { useAtomValue, useSetAtom } from 'jotai';
 import { useTranslations } from 'next-intl';
 import { useCallback } from 'react';
+import { useContentValid } from '../../update/hooks/useContentValid';
 
 export const useContentCreate = () => {
   const t = useTranslations();
   const { handleCompetedModal, handleErrorModal } = useModalHandler();
+  const { validContent } = useContentValid();
   const setModalAtom = useSetAtom(modalAtom);
-  const contentAtomValue = useAtomValue(contentReducerAtom);
+  const createContentAtomValue = useAtomValue(createContentReducerAtom);
   const postContentMutation = trpc.content.postContent.useMutation();
   const saveDraftContentMutation = trpc.content.saveDraftContent.useMutation();
 
-  // 保存記事内容のバリデーション
-  const validCreateContent = useCallback(
-    (postContent: CreateContentType): boolean => {
-      try {
-        createContentSchema.parse(postContent);
-        return true;
-      } catch (error) {
-        console.log(error);
-        handleErrorModal(new Error(ErrorType.ValidCreateContent));
-        return false;
-      }
-    },
-    [handleErrorModal],
-  );
-
   const saveDraftContent = useCallback(() => {
-    saveDraftContentMutation.mutate(contentAtomValue, {
+    saveDraftContentMutation.mutate(createContentAtomValue, {
       onSuccess: () => {
         handleCompetedModal('saveDraftContent');
       },
@@ -41,14 +25,14 @@ export const useContentCreate = () => {
       },
     });
   }, [
-    contentAtomValue,
+    createContentAtomValue,
     handleCompetedModal,
     handleErrorModal,
     saveDraftContentMutation,
   ]);
 
-  const handleDraftContentOverwriteConfirm = useCallback(() => {
-    if (validCreateContent(contentAtomValue)) {
+  const handleDraftContentSaveConfirm = useCallback(() => {
+    if (validContent(createContentAtomValue)) {
       setModalAtom({
         modal: {
           type: 'confirm',
@@ -58,10 +42,10 @@ export const useContentCreate = () => {
         },
       });
     }
-  }, [contentAtomValue, saveDraftContent, setModalAtom, t, validCreateContent]);
+  }, [createContentAtomValue, saveDraftContent, setModalAtom, t, validContent]);
 
   const postContent = useCallback(() => {
-    postContentMutation.mutate(contentAtomValue, {
+    postContentMutation.mutate(createContentAtomValue, {
       onSuccess: () => {
         handleCompetedModal('postContent');
       },
@@ -70,14 +54,14 @@ export const useContentCreate = () => {
       },
     });
   }, [
-    contentAtomValue,
+    createContentAtomValue,
     handleCompetedModal,
     handleErrorModal,
     postContentMutation,
   ]);
 
   const handleContentPostConfirm = useCallback(() => {
-    if (validCreateContent(contentAtomValue)) {
+    if (validContent(createContentAtomValue)) {
       setModalAtom({
         modal: {
           type: 'confirm',
@@ -87,7 +71,7 @@ export const useContentCreate = () => {
         },
       });
     }
-  }, [contentAtomValue, postContent, setModalAtom, t, validCreateContent]);
+  }, [createContentAtomValue, postContent, setModalAtom, t, validContent]);
 
-  return { handleDraftContentOverwriteConfirm, handleContentPostConfirm };
+  return { handleDraftContentSaveConfirm, handleContentPostConfirm };
 };

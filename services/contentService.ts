@@ -1,9 +1,8 @@
 import { ErrorType } from '@/common/constants';
 import prisma from '@/lib/prisma';
-import { CreateContentType } from '@/types';
+import { ContentType } from '@/types';
 import { TRPCError } from '@trpc/server';
 
-// 記事のカテゴリー一覧を取得
 export const getContentCategory = async () => {
   try {
     const categories = await prisma.postCategory.findMany();
@@ -17,7 +16,6 @@ export const getContentCategory = async () => {
   }
 };
 
-// idと一致する記事の内容を取得
 export const getContentById = async (contentId: number) => {
   try {
     const contentModel = await prisma.post.findUnique({
@@ -54,7 +52,6 @@ export const getContentById = async (contentId: number) => {
   }
 };
 
-// 自分の記事一覧を取得
 export const getMyContentList = async (userId: string) => {
   try {
     const postModel = await prisma.post.findMany({
@@ -90,9 +87,8 @@ export const getMyContentList = async (userId: string) => {
   }
 };
 
-// 記事を非公開で新たに保存または上書き
 export const saveDraftContent = async (
-  content: CreateContentType,
+  content: ContentType,
   userId: string,
 ) => {
   try {
@@ -104,7 +100,6 @@ export const saveDraftContent = async (
     });
 
     if (existingDraft) {
-      // 既存の下書きを更新
       await prisma.post.update({
         where: { id: existingDraft.id },
         data: {
@@ -116,7 +111,6 @@ export const saveDraftContent = async (
       return;
     }
 
-    // DBへ非公開で記事登録
     await prisma.post.create({
       data: {
         title: content.title,
@@ -135,13 +129,8 @@ export const saveDraftContent = async (
   }
 };
 
-// 記事を新たに保存し公開する
-export const postContent = async (
-  content: CreateContentType,
-  userId: string,
-) => {
+export const postContent = async (content: ContentType, userId: string) => {
   try {
-    // DBへ公開で記事登録
     await prisma.post.create({
       data: {
         title: content.title,
@@ -160,7 +149,71 @@ export const postContent = async (
   }
 };
 
-// 記事の削除
+export const updateDraftContent = async (
+  content: ContentType,
+  contentId: number,
+  userId: string,
+) => {
+  try {
+    const existingDraft = await prisma.post.findFirst({
+      where: {
+        authorId: userId,
+        published: false,
+      },
+    });
+
+    if (existingDraft) {
+      await prisma.post.delete({
+        where: { id: existingDraft.id },
+      });
+    }
+
+    await prisma.post.update({
+      where: { id: contentId },
+      data: {
+        title: content.title,
+        content: content.content,
+        categoryId: content.categoryId,
+        published: false,
+      },
+    });
+  } catch (error) {
+    console.log(error);
+    throw new TRPCError({
+      code: 'INTERNAL_SERVER_ERROR',
+      message: ErrorType.ServerError,
+    });
+  }
+};
+
+export const updateContent = async (
+  content: ContentType,
+  contentId: number,
+) => {
+  try {
+    // DBへ記事の更新
+    const updatedContent = await prisma.post.update({
+      where: {
+        id: contentId,
+      },
+      data: {
+        title: content.title,
+        content: content.content,
+        categoryId: content.categoryId,
+        published: true,
+      },
+    });
+
+    return updatedContent;
+  } catch (error) {
+    console.log(error);
+    throw new TRPCError({
+      code: 'INTERNAL_SERVER_ERROR',
+      message: ErrorType.ServerError,
+    });
+  }
+};
+
 export const deleteContent = async (contentId: number) => {
   try {
     await prisma.post.delete({
