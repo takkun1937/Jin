@@ -5,7 +5,7 @@ import { AppRouter } from '@/server/routers/_app';
 
 interface ContentListProps {
   isMyContent: boolean;
-  contents: inferProcedureOutput<AppRouter['content']['getMyContentList']>;
+  contents: inferProcedureOutput<AppRouter['content']['getContentList']>;
 }
 
 export default function ContentList({

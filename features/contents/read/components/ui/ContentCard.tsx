@@ -9,9 +9,7 @@ import { useRouter } from 'next/navigation';
 
 interface ContentCardProps {
   isMyContent: boolean;
-  content: inferProcedureOutput<
-    AppRouter['content']['getMyContentList']
-  >[number];
+  content: inferProcedureOutput<AppRouter['content']['getContentList']>[number];
 }
 
 export default function ContentCard({

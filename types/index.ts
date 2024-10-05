@@ -2,6 +2,12 @@ import { ModalType } from '@/common/constants';
 import { contentSchema } from '@/server/schema/content';
 import { z } from 'zod';
 
+export type Modal =
+  | ConfirmModalType
+  | CompletedModalType
+  | ErrorModalType
+  | typeof ModalType.None;
+
 export interface ConfirmModalType {
   type: typeof ModalType.Confirm;
   title: string;

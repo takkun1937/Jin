@@ -36,7 +36,13 @@ export const useContentUpdate = () => {
         },
       },
     );
-  }, []);
+  }, [
+    handleCompetedModal,
+    handleErrorModal,
+    params.contentId,
+    updateContentAtomValue,
+    updateDraftContentMutation,
+  ]);
 
   const handleDraftContentUpdateConfirm = useCallback(() => {
     if (validContent(updateContentAtomValue)) {

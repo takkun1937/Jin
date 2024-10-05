@@ -10,9 +10,16 @@ import {
   updateDraftContent,
 } from '@/services/contentService';
 import { procedure, router } from '../trpc';
-import { z, ZodError } from 'zod';
+import { ZodError } from 'zod';
 import { protectedProcedure } from '../middleware';
-import { contentSchema } from '../schema/content';
+import {
+  contentSchema,
+  deleteContentSchema,
+  getContentByIdSchema,
+  getMyContentListSchema,
+  updateContentSchema,
+  updateDraftContentSchema,
+} from '../schema/content';
 import { ErrorType } from '@/common/constants';
 
 export const contentRouter = router({
@@ -20,15 +27,13 @@ export const contentRouter = router({
     const data = await getContentList();
     return data;
   }),
-  getContentById: procedure
-    .input(z.object({ contentId: z.number() }))
-    .query(async (opts) => {
-      const contentId = opts.input.contentId;
-      const data = await getContentById(contentId);
-      return data;
-    }),
+  getContentById: procedure.input(getContentByIdSchema).query(async (opts) => {
+    const contentId = opts.input.contentId;
+    const data = await getContentById(contentId);
+    return data;
+  }),
   getMyContentList: protectedProcedure
-    .input(z.object({ userId: z.string() }))
+    .input(getMyContentListSchema)
     .query(async (opts) => {
       const userId = opts.input.userId;
       const data = await getMyContentList(userId);
@@ -39,7 +44,7 @@ export const contentRouter = router({
     return categories;
   }),
   getMyContentById: protectedProcedure
-    .input(z.object({ contentId: z.number() }))
+    .input(getContentByIdSchema)
     .query(async (opts) => {
       const contentId = opts.input.contentId;
       const data = await getContentById(contentId);
@@ -67,12 +72,7 @@ export const contentRouter = router({
       }
     }),
   updateDraftContent: protectedProcedure
-    .input(
-      z.object({
-        contentId: z.number(),
-        content: contentSchema,
-      }),
-    )
+    .input(updateDraftContentSchema)
     .mutation(async (opts) => {
       const contentId = opts.input.contentId;
       const content = opts.input.content;
@@ -80,14 +80,14 @@ export const contentRouter = router({
       await updateDraftContent(content, contentId, userId);
     }),
   updateContent: protectedProcedure
-    .input(z.object({ contentId: z.number(), content: contentSchema }))
+    .input(updateContentSchema)
     .mutation(async (opts) => {
       const contentId = opts.input.contentId;
       const content = opts.input.content;
       await updateContent(content, contentId);
     }),
   deleteContent: protectedProcedure
-    .input(z.object({ contentId: z.number() }))
+    .input(deleteContentSchema)
     .mutation(async (opts) => {
       const contentId = opts.input.contentId;
       await deleteContent(contentId);

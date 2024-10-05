@@ -1,13 +1,7 @@
 import { ModalType } from '@/common/constants';
 import { initialContent, contentReducer } from '@/reducers/contentReducer';
-import { CompletedModalType, ConfirmModalType, ErrorModalType } from '@/types';
+import { Modal } from '@/types';
 import { atomWithReducer, atomWithReset } from 'jotai/utils';
-
-type Modal =
-  | ConfirmModalType
-  | CompletedModalType
-  | ErrorModalType
-  | typeof ModalType.None;
 
 interface modalAtomType {
   modal: Modal;

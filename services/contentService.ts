@@ -34,7 +34,7 @@ export const getContentList = async () => {
     console.log(error);
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: ErrorType.ServerError,
+      message: ErrorType.GetContentList,
     });
   }
 };
@@ -69,7 +69,7 @@ export const getMyContentList = async (userId: string) => {
     console.log(error);
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: ErrorType.GetMyContentList,
+      message: ErrorType.GetContentList,
     });
   }
 };
@@ -118,7 +118,7 @@ export const getContentById = async (contentId: number) => {
     console.log(error);
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: ErrorType.ServerError,
+      message: ErrorType.GetContentById,
     });
   }
 };
@@ -160,7 +160,7 @@ export const saveDraftContent = async (
     console.log(error);
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: ErrorType.ServerError,
+      message: ErrorType.SaveContent,
     });
   }
 };
@@ -180,7 +180,7 @@ export const postContent = async (content: ContentType, userId: string) => {
     console.log(error);
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: ErrorType.ServerError,
+      message: ErrorType.SaveContent,
     });
   }
 };
@@ -217,7 +217,7 @@ export const updateDraftContent = async (
     console.log(error);
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: ErrorType.ServerError,
+      message: ErrorType.UpdateContent,
     });
   }
 };
@@ -245,7 +245,7 @@ export const updateContent = async (
     console.log(error);
     throw new TRPCError({
       code: 'INTERNAL_SERVER_ERROR',
-      message: ErrorType.ServerError,
+      message: ErrorType.UpdateContent,
     });
   }
 };

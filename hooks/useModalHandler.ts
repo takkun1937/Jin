@@ -107,12 +107,32 @@ export const useModalHandler = () => {
             });
             break;
           }
-          case ErrorType.GetMyContentList: {
+          case ErrorType.GetContentList: {
             setModalAtom({
               modal: {
                 type: 'error',
-                title: t('modal.title.get_my_content_list_error'),
-                message: t('modal.message.get_my_content_list_error'),
+                title: t('modal.title.get_content_list_error'),
+                message: t('modal.message.get_content_list_error'),
+              },
+            });
+            break;
+          }
+          case ErrorType.GetContentById: {
+            setModalAtom({
+              modal: {
+                type: 'error',
+                title: t('modal.title.get_content_by_id_error'),
+                message: t('modal.message.get_content_by_id_error'),
+              },
+            });
+            break;
+          }
+          case ErrorType.SaveContent: {
+            setModalAtom({
+              modal: {
+                type: 'error',
+                title: t('modal.title.save_content_error'),
+                message: t('modal.message.save_content_error'),
               },
             });
             break;

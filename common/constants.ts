@@ -8,7 +8,6 @@ export const RoutePath = {
   MyContentPost: '/my-content/post',
 } as const;
 
-// TODO: 削除できないか要検討
 export const ModalType = {
   None: 'none',
   Confirm: 'confirm',
@@ -19,8 +18,10 @@ export const ModalType = {
 export const ErrorType = {
   Unauthorized: 'Unauthorized',
   GetContentCategory: 'getContentCategory',
-  GetMyContentList: 'getMyContentList',
+  GetContentList: 'getContentList',
+  GetContentById: 'getContentById',
   ValidContent: 'validContent',
+  SaveContent: 'saveContent',
   DeleteContent: 'deleteContent',
   UpdateContent: 'updateContent',
   ServerError: 'serverError',

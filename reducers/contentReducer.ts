@@ -10,8 +10,7 @@ type Action =
   | { type: 'changeTitle'; payload: string }
   | { type: 'changeCategory'; payload: number }
   | { type: 'changeContent'; payload: string }
-  | { type: 'changeContentObject'; payload: ContentType }
-  | { type: 'reset' };
+  | { type: 'changeContentObject'; payload: ContentType };
 
 export const contentReducer = (prev: ContentType, action: Action) => {
   switch (action.type) {
@@ -26,9 +25,6 @@ export const contentReducer = (prev: ContentType, action: Action) => {
     }
     case 'changeContentObject': {
       return action.payload;
-    }
-    case 'reset': {
-      return initialContent;
     }
     default: {
       return prev;
