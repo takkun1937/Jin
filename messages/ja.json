@@ -2,6 +2,8 @@
   "app_name": "Jin",
   "content_title": "記事タイトル",
   "select_category": "カテゴリーを選択",
+  "public": "公開中",
+  "private": "非公開中",
   "copy_right": "© 2024 Jin",
   "button": {
     "login": "ログイン",

@@ -4,6 +4,7 @@ import { RoutePath } from '@/common/constants';
 import { AppRouter } from '@/server/routers/_app';
 import { formatDate } from '@/utils/utils';
 import { inferProcedureOutput } from '@trpc/server';
+import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
@@ -17,6 +18,7 @@ export default function ContentCard({
   content,
 }: ContentCardProps) {
   const router = useRouter();
+  const t = useTranslations();
 
   return (
     <div
@@ -27,15 +29,22 @@ export default function ContentCard({
         )
       }
     >
-      <div className='flex gap-2 items-center'>
-        <Image
-          src={content.userImage ?? ''}
-          alt='user image'
-          width={32}
-          height={32}
-          className='rounded-full'
-        />
-        <p>{formatDate(content.updatedAt)}</p>
+      <div className='flex justify-between items-center'>
+        <div className='flex gap-2 items-center'>
+          <Image
+            src={content.userImage ?? ''}
+            alt='user image'
+            width={32}
+            height={32}
+            className='rounded-full'
+          />
+          <p className='text-gray-500'>{formatDate(content.updatedAt)}</p>
+        </div>
+        {isMyContent && (
+          <p className='text-gray-500'>
+            {content.published ? t('public') : t('private')}
+          </p>
+        )}
       </div>
       <p className='font-lg truncate'>{content.title}</p>
       <p className='w-fit px-1.5 bg-surface'>{content.category}</p>
