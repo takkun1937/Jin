@@ -107,6 +107,7 @@ export const getContentById = async (contentId: number) => {
       id: contentModel.id,
       title: contentModel.title,
       content: contentModel.content,
+      categoryId: contentModel.categoryId,
       category: contentModel.category.category,
       userImage: contentModel.author.image,
       published: contentModel.published,

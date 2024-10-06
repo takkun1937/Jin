@@ -13,7 +13,7 @@ export default function ButtonContainer({ content }: ButtonContainerProps) {
 
   return (
     <div className='flex justify-between items-center mb-6'>
-      <p className='text-gray-500'>
+      <p className='text-gray_black font-bold'>
         {content.published ? t('public') : t('private')}
       </p>
       <div className='flex gap-2'>

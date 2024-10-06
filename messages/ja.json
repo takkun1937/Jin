@@ -1,6 +1,9 @@
 {
   "app_name": "Jin",
+  "app_concept": "フロントエンドでエンジニア界を埋め尽くす",
   "content_title": "記事タイトル",
+  "content_list": "記事一覧",
+  "my_content_list": "自分の記事一覧",
   "select_category": "カテゴリーを選択",
   "public": "公開中",
   "private": "非公開中",
