@@ -19,7 +19,7 @@ export default async function MyContent({
 
   const caller = createCaller({ session });
   const content = await caller.getMyContentById({
-    contentId: parseInt(params.contentId, 10),
+    contentId: params.contentId,
   });
 
   return (

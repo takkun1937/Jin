@@ -24,9 +24,8 @@ export const useContentUpdate = () => {
     trpc.content.updateDraftContent.useMutation();
 
   const updateDraftContent = useCallback(async () => {
-    const contentId = parseInt(params.contentId, 10);
     updateDraftContentMutation.mutate(
-      { content: updateContentAtomValue, contentId },
+      { content: updateContentAtomValue, contentId: params.contentId },
       {
         onSuccess: () => {
           handleCompetedModal('updateDraftContent');
@@ -64,9 +63,8 @@ export const useContentUpdate = () => {
   ]);
 
   const updateContent = useCallback(async () => {
-    const contentId = parseInt(params.contentId, 10);
     updateContentMutation.mutate(
-      { content: updateContentAtomValue, contentId },
+      { content: updateContentAtomValue, contentId: params.contentId },
       {
         onSuccess: () => {
           handleCompetedModal('updateContent');
@@ -98,7 +96,7 @@ export const useContentUpdate = () => {
   }, [validContent, updateContentAtomValue, setModalAtom, t, updateContent]);
 
   const handleContentEditNavigate = useCallback(
-    (content: ContentType, contentId: number) => {
+    (content: ContentType, contentId: string) => {
       updateContentDispatch({ type: 'changeContentObject', payload: content });
       router.push(`${RoutePath.MyContentEdit}/${contentId}`);
     },

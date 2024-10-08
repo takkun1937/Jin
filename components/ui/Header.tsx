@@ -67,10 +67,10 @@ export default function Header() {
                   visual='white_text_gray'
                   onClick={handleDraftContentUpdateConfirm}
                 >
-                  {t('button.update_draft_content')}
+                  {t('button.private_update')}
                 </Button>
                 <Button onClick={handleContentUpdateConfirm}>
-                  {t('button.update')}
+                  {t('button.public_update')}
                 </Button>
               </>
             ) : (

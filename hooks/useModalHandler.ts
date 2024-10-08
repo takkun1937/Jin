@@ -81,6 +81,19 @@ export const useModalHandler = () => {
           });
           break;
         }
+        case 'updateDraftContent': {
+          setModalAtom({
+            modal: {
+              type: 'completed',
+              title: t('modal.title.update_draft_content_completed'),
+              message: t('modal.message.update_draft_content_completed'),
+              handlePositiveButtonClick: () => {
+                handleCompletedNavigate();
+              },
+            },
+          });
+          break;
+        }
         default: {
           setModalAtom(RESET);
         }

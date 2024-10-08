@@ -74,11 +74,11 @@ model VerificationToken {
 }
 
 model Post {
-  id         Int          @id @default(autoincrement())
+  id         String       @id @default(cuid())
   createdAt  DateTime     @default(now())
   updatedAt  DateTime     @updatedAt
   title      String       @db.VarChar(255)
-  content    String
+  content    String       @db.Text
   published  Boolean      @default(false)
   author     User         @relation(fields: [authorId], references: [id])
   authorId   String
@@ -88,6 +88,6 @@ model Post {
 
 model PostCategory {
   id       Int      @id @default(autoincrement())
-  category String
+  category String   @db.VarChar(255)
   posts    Post[] 
 }

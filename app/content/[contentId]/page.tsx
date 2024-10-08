@@ -8,7 +8,7 @@ export default async function Content({
 }) {
   const caller = createCaller({ session: null });
   const content = await caller.getContentById({
-    contentId: parseInt(params.contentId, 10),
+    contentId: params.contentId,
   });
 
   return (

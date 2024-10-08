@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl';
 import { useContentDelete } from '../../hooks/useContentDelete';
 
 interface ContentDeleteButtonProps {
-  contentId: number;
+  contentId: string;
 }
 
 export default function ContentDeleteButton({

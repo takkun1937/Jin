@@ -12,7 +12,7 @@ export const useContentDelete = () => {
   const { handleCompetedModal, handleErrorModal } = useModalHandler();
 
   const deleteContent = useCallback(
-    async (contentId: number) => {
+    async (contentId: string) => {
       deleteContentMutation.mutate(
         { contentId },
         {
@@ -29,7 +29,7 @@ export const useContentDelete = () => {
   );
 
   const showContentDeleteConfirmModal = useCallback(
-    (contentId: number) => {
+    (contentId: string) => {
       setModalAtom({
         modal: {
           type: 'confirm',

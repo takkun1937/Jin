@@ -87,7 +87,7 @@ export const getContentCategory = async () => {
   }
 };
 
-export const getContentById = async (contentId: number) => {
+export const getContentById = async (contentId: string) => {
   try {
     const contentModel = await prisma.post.findUnique({
       where: {
@@ -128,33 +128,35 @@ export const saveDraftContent = async (
   userId: string,
 ) => {
   try {
-    const existingDraft = await prisma.post.findFirst({
-      where: {
-        authorId: userId,
-        published: false,
-      },
-    });
+    await prisma.$transaction(async (prisma) => {
+      const existingDraft = await prisma.post.findFirst({
+        where: {
+          authorId: userId,
+          published: false,
+        },
+      });
 
-    if (existingDraft) {
-      await prisma.post.update({
-        where: { id: existingDraft.id },
+      if (existingDraft) {
+        await prisma.post.update({
+          where: { id: existingDraft.id },
+          data: {
+            title: content.title,
+            content: content.content,
+            categoryId: content.categoryId,
+          },
+        });
+        return;
+      }
+
+      await prisma.post.create({
         data: {
           title: content.title,
           content: content.content,
           categoryId: content.categoryId,
+          authorId: userId,
+          published: false,
         },
       });
-      return;
-    }
-
-    await prisma.post.create({
-      data: {
-        title: content.title,
-        content: content.content,
-        categoryId: content.categoryId,
-        authorId: userId,
-        published: false,
-      },
     });
   } catch (error) {
     console.log(error);
@@ -187,31 +189,37 @@ export const postContent = async (content: ContentType, userId: string) => {
 
 export const updateDraftContent = async (
   content: ContentType,
-  contentId: number,
+  contentId: string,
   userId: string,
 ) => {
   try {
-    const existingDraft = await prisma.post.findFirst({
-      where: {
-        authorId: userId,
-        published: false,
-      },
-    });
-
-    if (existingDraft) {
-      await prisma.post.delete({
-        where: { id: existingDraft.id },
+    await prisma.$transaction(async (prisma) => {
+      await prisma.post.update({
+        where: { id: contentId },
+        data: {
+          title: content.title,
+          content: content.content,
+          categoryId: content.categoryId,
+          published: false,
+        },
       });
-    }
 
-    await prisma.post.update({
-      where: { id: contentId },
-      data: {
-        title: content.title,
-        content: content.content,
-        categoryId: content.categoryId,
-        published: false,
-      },
+      const draftContents = await prisma.post.findMany({
+        where: {
+          authorId: userId,
+          published: false,
+        },
+      });
+
+      if (draftContents.length > 1) {
+        const deleteContentIdList = draftContents
+          .filter((draft) => draft.id !== contentId)
+          .map((draft) => draft.id);
+
+        await prisma.post.deleteMany({
+          where: { id: { in: deleteContentIdList } },
+        });
+      }
     });
   } catch (error) {
     console.log(error);
@@ -224,7 +232,7 @@ export const updateDraftContent = async (
 
 export const updateContent = async (
   content: ContentType,
-  contentId: number,
+  contentId: string,
 ) => {
   try {
     // DBへ記事の更新
@@ -250,7 +258,7 @@ export const updateContent = async (
   }
 };
 
-export const deleteContent = async (contentId: number) => {
+export const deleteContent = async (contentId: string) => {
   try {
     await prisma.post.delete({
       where: {
