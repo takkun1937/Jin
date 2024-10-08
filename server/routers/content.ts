@@ -8,7 +8,7 @@ import {
   saveDraftContent,
   updateContent,
   updateDraftContent,
-} from '@/services/contentService';
+} from '@/server/services/contentService';
 import { procedure, router } from '../trpc';
 import { ZodError } from 'zod';
 import { protectedProcedure } from '../middleware';
