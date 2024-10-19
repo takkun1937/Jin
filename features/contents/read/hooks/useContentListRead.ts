@@ -6,7 +6,7 @@ interface UseContentListReadProps {
   isMyContent: boolean;
 }
 
-const numberOfContentsFetch = 3;
+const numberOfContentsFetch = 30;
 
 export const useContentListRead = ({
   isMyContent,
