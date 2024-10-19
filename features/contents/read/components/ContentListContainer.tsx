@@ -13,17 +13,22 @@ export default function ContentListContainer({
   isMyContent,
 }: ContentListContainerProps) {
   const t = useTranslations();
-  const { contentList, loadMoreContentList } = useContentListRead({
+  const { data, loadMoreContentList } = useContentListRead({
     isMyContent,
   });
+
+  const contentList = data?.pages.flatMap((page) => page.contents) ?? [];
+  const nextCursor = data?.pages[data.pages.length - 1].nextCursor;
 
   return (
     <div>
       <ContentList isMyContent={isMyContent} contents={contentList} />
       <div className='mt-6 text-center'>
-        <Button visual='secondary' onClick={loadMoreContentList}>
-          {t('button.load_more')}
-        </Button>
+        {nextCursor && (
+          <Button visual='secondary' onClick={loadMoreContentList}>
+            {t('button.load_more')}
+          </Button>
+        )}
       </div>
     </div>
   );

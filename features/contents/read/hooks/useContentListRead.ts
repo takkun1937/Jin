@@ -1,6 +1,5 @@
-import { ContentListType } from '@/types';
 import { trpc } from '@/utils/trpc';
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback } from 'react';
 
 interface UseContentListReadProps {
   isMyContent: boolean;
@@ -11,7 +10,6 @@ const numberOfContentsFetch = 30;
 export const useContentListRead = ({
   isMyContent,
 }: UseContentListReadProps) => {
-  const [contentList, setContentList] = useState<ContentListType>([]);
   const { data, fetchNextPage } = isMyContent
     ? trpc.content.getMyContentList.useInfiniteQuery(
         {
@@ -34,9 +32,5 @@ export const useContentListRead = ({
     fetchNextPage();
   }, [fetchNextPage]);
 
-  useEffect(() => {
-    setContentList(data?.pages.flatMap((page) => page.contents) ?? []);
-  }, [data]);
-
-  return { contentList, loadMoreContentList };
+  return { data, loadMoreContentList };
 };
