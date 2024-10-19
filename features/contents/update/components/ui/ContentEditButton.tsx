@@ -2,19 +2,17 @@
 
 import Button from '@/components/ui/Button';
 import { useTranslations } from 'next-intl';
-import { inferProcedureOutput } from '@trpc/server';
-import { AppRouter } from '@/server/routers/_app';
 import { useContentUpdate } from '../../hooks/useContentUpdate';
-import { ContentType } from '@/types';
+import { ContentSchemaType, ContentType } from '@/types';
 
 interface ContentEditButtonProps {
-  content: inferProcedureOutput<AppRouter['content']['getContentById']>;
+  content: ContentType;
 }
 
 export default function ContentEditButton({ content }: ContentEditButtonProps) {
   const t = useTranslations();
   const { handleContentEditNavigate } = useContentUpdate();
-  const editContent: ContentType = {
+  const editContent: ContentSchemaType = {
     title: content.title,
     content: content.content,
     categoryId: content.categoryId,

@@ -21,7 +21,8 @@
     "delete": "削除",
     "edit": "編集",
     "public_update": "公開で更新",
-    "try_again": "Try again"
+    "try_again": "再試行",
+    "load_more": "もっと読む"
   },
   "modal": {
     "title": {
@@ -64,7 +65,7 @@
       "update_content_error": "記事の更新に失敗しました。",
       "server_error": "サーバーの不具合によりエラーが発生しました。",
       "valid_error": "不正なリクエストです。",
-      "valid_post_content_error": "記事タイトル、記事内容、記事カテゴリーを入力してください。"
+      "valid_post_content_error": "記事タイトル、記事内容、記事カテゴリーを入力してください。また、記事タイトルは255文字以内、記事内容は2万文字以内で入力してください。"
     }
   }
 }

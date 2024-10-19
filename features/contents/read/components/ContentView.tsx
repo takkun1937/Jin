@@ -1,13 +1,12 @@
 'use client';
 
-import { AppRouter } from '@/server/routers/_app';
+import { ContentType } from '@/types';
 import { formatDate } from '@/utils/utils';
-import { inferProcedureOutput } from '@trpc/server';
 import MDEditor from '@uiw/react-md-editor';
 import Image from 'next/image';
 
 interface ContentViewProps {
-  content: inferProcedureOutput<AppRouter['content']['getContentById']>;
+  content: ContentType;
 }
 
 export default function ContentView({ content }: ContentViewProps) {

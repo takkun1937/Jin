@@ -1,13 +1,9 @@
-import ContentList from '@/features/contents/read/components/ContentList';
-import { createCaller } from '@/server/routers/_app';
+import ContentListContainer from '@/features/contents/read/components/ContentListContainer';
 
 export default async function Home() {
-  const caller = createCaller({ session: null });
-  const contentList = await caller.getContentList();
-
   return (
     <div className='px-8 py-6'>
-      <ContentList isMyContent={false} contents={contentList} />
+      <ContentListContainer isMyContent={false} />
     </div>
   );
 }

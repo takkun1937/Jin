@@ -1,14 +1,14 @@
 import { ErrorType } from '@/common/constants';
 import { useModalHandler } from '@/hooks/useModalHandler';
 import { contentSchema } from '@/server/schema/content';
-import { ContentType } from '@/types';
+import { ContentSchemaType } from '@/types';
 import { useCallback } from 'react';
 
 export const useContentValid = () => {
   const { handleErrorModal } = useModalHandler();
 
   const validContent = useCallback(
-    (postContent: ContentType): boolean => {
+    (postContent: ContentSchemaType): boolean => {
       try {
         contentSchema.parse(postContent);
         return true;

@@ -1,14 +1,19 @@
 import { ErrorType } from '@/common/constants';
 import prisma from '@/lib/prisma';
-import { ContentType } from '@/types';
+import { ContentSchemaType } from '@/types';
 import { TRPCError } from '@trpc/server';
 
-export const getContentList = async () => {
+export const getContentList = async (
+  limit: number,
+  cursor: string | undefined,
+) => {
   try {
-    const postModel = await prisma.post.findMany({
+    const posts = await prisma.post.findMany({
+      take: limit + 1,
       where: {
         published: true,
       },
+      cursor: cursor ? { id: cursor } : undefined,
       orderBy: {
         updatedAt: 'desc',
       },
@@ -17,8 +22,13 @@ export const getContentList = async () => {
         category: true,
       },
     });
+    let nextCursor: typeof cursor | undefined = undefined;
+    if (posts.length > limit) {
+      const nextItem = posts.pop();
+      nextCursor = nextItem!.id;
+    }
 
-    const contents = postModel.map((content) => {
+    const contents = posts.map((content) => {
       return {
         id: content.id,
         title: content.title,
@@ -29,7 +39,7 @@ export const getContentList = async () => {
       };
     });
 
-    return contents;
+    return { contents, nextCursor };
   } catch (error) {
     console.log(error);
     throw new TRPCError({
@@ -39,12 +49,18 @@ export const getContentList = async () => {
   }
 };
 
-export const getMyContentList = async (userId: string) => {
+export const getMyContentList = async (
+  userId: string,
+  limit: number,
+  cursor: string | undefined,
+) => {
   try {
-    const postModel = await prisma.post.findMany({
+    const posts = await prisma.post.findMany({
+      take: limit + 1,
       where: {
         authorId: userId,
       },
+      cursor: cursor ? { id: cursor } : undefined,
       orderBy: {
         updatedAt: 'desc',
       },
@@ -53,8 +69,13 @@ export const getMyContentList = async (userId: string) => {
         category: true,
       },
     });
+    let nextCursor: typeof cursor | undefined = undefined;
+    if (posts.length > limit) {
+      const nextItem = posts.pop();
+      nextCursor = nextItem!.id;
+    }
 
-    const myContents = postModel.map((content) => {
+    const contents = posts.map((content) => {
       return {
         id: content.id,
         title: content.title,
@@ -64,7 +85,7 @@ export const getMyContentList = async (userId: string) => {
         updatedAt: content.updatedAt,
       };
     });
-    return myContents;
+    return { contents, nextCursor };
   } catch (error) {
     console.log(error);
     throw new TRPCError({
@@ -89,7 +110,7 @@ export const getContentCategory = async () => {
 
 export const getContentById = async (contentId: string) => {
   try {
-    const contentModel = await prisma.post.findUnique({
+    const post = await prisma.post.findUnique({
       where: {
         id: contentId,
       },
@@ -99,19 +120,19 @@ export const getContentById = async (contentId: string) => {
       },
     });
 
-    if (!contentModel) {
+    if (!post) {
       throw new Error();
     }
 
     const content = {
-      id: contentModel.id,
-      title: contentModel.title,
-      content: contentModel.content,
-      categoryId: contentModel.categoryId,
-      category: contentModel.category.category,
-      userImage: contentModel.author.image,
-      published: contentModel.published,
-      updatedAt: contentModel.updatedAt,
+      id: post.id,
+      title: post.title,
+      content: post.content,
+      categoryId: post.categoryId,
+      category: post.category.category,
+      userImage: post.author.image,
+      published: post.published,
+      updatedAt: post.updatedAt,
     };
     return content;
   } catch (error) {
@@ -124,7 +145,7 @@ export const getContentById = async (contentId: string) => {
 };
 
 export const saveDraftContent = async (
-  content: ContentType,
+  content: ContentSchemaType,
   userId: string,
 ) => {
   try {
@@ -167,7 +188,10 @@ export const saveDraftContent = async (
   }
 };
 
-export const postContent = async (content: ContentType, userId: string) => {
+export const postContent = async (
+  content: ContentSchemaType,
+  userId: string,
+) => {
   try {
     await prisma.post.create({
       data: {
@@ -188,7 +212,7 @@ export const postContent = async (content: ContentType, userId: string) => {
 };
 
 export const updateDraftContent = async (
-  content: ContentType,
+  content: ContentSchemaType,
   contentId: string,
   userId: string,
 ) => {
@@ -231,7 +255,7 @@ export const updateDraftContent = async (
 };
 
 export const updateContent = async (
-  content: ContentType,
+  content: ContentSchemaType,
   contentId: string,
 ) => {
   try {

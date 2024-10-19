@@ -1,6 +1,6 @@
 import { modalAtom, updateContentReducerAtom } from '@/atoms';
 import { RoutePath } from '@/common/constants';
-import { ContentType } from '@/types';
+import { ContentSchemaType } from '@/types';
 import { useAtom, useSetAtom } from 'jotai';
 import { useTranslations } from 'next-intl';
 import { useParams, useRouter } from 'next/navigation';
@@ -96,7 +96,7 @@ export const useContentUpdate = () => {
   }, [validContent, updateContentAtomValue, setModalAtom, t, updateContent]);
 
   const handleContentEditNavigate = useCallback(
-    (content: ContentType, contentId: string) => {
+    (content: ContentSchemaType, contentId: string) => {
       updateContentDispatch({ type: 'changeContentObject', payload: content });
       router.push(`${RoutePath.MyContentEdit}/${contentId}`);
     },

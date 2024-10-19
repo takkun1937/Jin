@@ -23,7 +23,7 @@ export default async function MyContent({
   });
 
   return (
-    <div className='px-8 py-6'>
+    <div className='flex flex-col gap-6 px-8 py-6'>
       <ButtonContainer content={content} />
       <ContentView content={content} />
     </div>

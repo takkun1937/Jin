@@ -16,15 +16,17 @@ import {
   contentSchema,
   deleteContentSchema,
   getContentByIdSchema,
-  getMyContentListSchema,
+  getContentListSchema,
   updateContentSchema,
   updateDraftContentSchema,
 } from '../schema/content';
 import { ErrorType } from '@/common/constants';
 
 export const contentRouter = router({
-  getContentList: procedure.query(async () => {
-    const data = await getContentList();
+  getContentList: procedure.input(getContentListSchema).query(async (opts) => {
+    const limit = opts.input.limit ?? 30;
+    const cursor = opts.input.cursor ?? undefined;
+    const data = await getContentList(limit, cursor);
     return data;
   }),
   getContentById: procedure.input(getContentByIdSchema).query(async (opts) => {
@@ -33,10 +35,12 @@ export const contentRouter = router({
     return data;
   }),
   getMyContentList: protectedProcedure
-    .input(getMyContentListSchema)
+    .input(getContentListSchema)
     .query(async (opts) => {
-      const userId = opts.input.userId;
-      const data = await getMyContentList(userId);
+      const userId = opts.ctx.session.user.id;
+      const limit = opts.input.limit ?? 30;
+      const cursor = opts.input.cursor ?? undefined;
+      const data = await getMyContentList(userId, limit, cursor);
       return data;
     }),
   getContentCategory: protectedProcedure.query(async () => {

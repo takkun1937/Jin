@@ -1,12 +1,11 @@
 import Grid from '@/components/ui/Grid';
-import ContentCard from './ui/ContentCard';
-import { inferProcedureOutput } from '@trpc/server';
-import { AppRouter } from '@/server/routers/_app';
+import ContentCard from './ContentCard';
 import { useTranslations } from 'next-intl';
+import { ContentListType } from '@/types';
 
 interface ContentListProps {
   isMyContent: boolean;
-  contents: inferProcedureOutput<AppRouter['content']['getContentList']>;
+  contents: ContentListType;
 }
 
 export default function ContentList({

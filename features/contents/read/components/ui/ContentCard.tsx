@@ -1,16 +1,15 @@
 'use client';
 
 import { RoutePath } from '@/common/constants';
-import { AppRouter } from '@/server/routers/_app';
+import { ContentListType } from '@/types';
 import { formatDate } from '@/utils/utils';
-import { inferProcedureOutput } from '@trpc/server';
 import { useTranslations } from 'next-intl';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 
 interface ContentCardProps {
   isMyContent: boolean;
-  content: inferProcedureOutput<AppRouter['content']['getContentList']>[number];
+  content: ContentListType[number];
 }
 
 export default function ContentCard({

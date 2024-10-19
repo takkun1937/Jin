@@ -10,8 +10,9 @@ export const getContentByIdSchema = z.object({
   contentId: z.string().cuid(),
 });
 
-export const getMyContentListSchema = z.object({
-  userId: z.string().cuid(),
+export const getContentListSchema = z.object({
+  limit: z.number().min(1).max(30).nullish(),
+  cursor: z.string().nullish(),
 });
 
 export const updateDraftContentSchema = z.object({

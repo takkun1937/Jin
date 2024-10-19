@@ -1,5 +1,7 @@
 import { ModalType } from '@/common/constants';
+import { AppRouter } from '@/server/routers/_app';
 import { contentSchema } from '@/server/schema/content';
+import { inferProcedureOutput } from '@trpc/server';
 import { z } from 'zod';
 
 export type Modal =
@@ -29,4 +31,12 @@ export interface ErrorModalType {
 }
 
 // 新規保存・投稿する記事の型
-export type ContentType = z.infer<typeof contentSchema>;
+export type ContentSchemaType = z.infer<typeof contentSchema>;
+
+export type ContentListType = inferProcedureOutput<
+  AppRouter['content']['getContentList']
+>['contents'];
+
+export type ContentType = inferProcedureOutput<
+  AppRouter['content']['getContentById']
+>;

@@ -1,6 +1,6 @@
-import { ContentType } from '@/types';
+import { ContentSchemaType } from '@/types';
 
-export const initialContent: ContentType = {
+export const initialContent: ContentSchemaType = {
   title: '',
   categoryId: 0,
   content: '',
@@ -10,9 +10,9 @@ type Action =
   | { type: 'changeTitle'; payload: string }
   | { type: 'changeCategory'; payload: number }
   | { type: 'changeContent'; payload: string }
-  | { type: 'changeContentObject'; payload: ContentType };
+  | { type: 'changeContentObject'; payload: ContentSchemaType };
 
-export const contentReducer = (prev: ContentType, action: Action) => {
+export const contentReducer = (prev: ContentSchemaType, action: Action) => {
   switch (action.type) {
     case 'changeTitle': {
       return { ...prev, title: action.payload };
