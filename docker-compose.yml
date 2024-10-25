@@ -20,13 +20,14 @@ services:
     build:
       context: .
       dockerfile: ./db/Dockerfile
-    container_name: mysql_host
+    container_name: jin_db
     environment:
-      MYSQL_ROOT_PASSWORD: password
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: jin_db
     ports:
-      - 3306:3306
+      - 5432:5432
     restart: always
     volumes:
-      - ./db/data:/var/lib/mysql
-      - ./db/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
-      - ./db/conf.d:/etc/mysql/conf.d
+      - ./db/data:/var/lib/postgresql/data
+      - ./db/pg_hba.conf:/etc/postgresql/main/pg_hba.conf
