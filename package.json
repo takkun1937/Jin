@@ -4,12 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "postinstall": "prisma generate",
-    "build": "prisma generate && prisma migrate deploy && next build",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
     "migrate:local": "dotenv -e .env.local -- npx prisma migrate dev",
-    "seed:local": "dotenv -e .env.local -- npx prisma db seed"
+    "seed:local": "dotenv -e .env.local -- npx prisma db seed",
+    "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
     "@next-auth/prisma-adapter": "^1.0.7",
