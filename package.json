@@ -9,6 +9,7 @@
     "lint": "next lint",
     "migrate:local": "dotenv -e .env.local -- npx prisma migrate dev",
     "seed:local": "dotenv -e .env.local -- npx prisma db seed",
+    "seed:prod": "dotenv -e .env.production -- npx prisma db seed",
     "vercel-build": "prisma generate && prisma migrate deploy && next build"
   },
   "dependencies": {
