@@ -43,14 +43,15 @@
 
 2. コンソールから以下のコマンドを実行することで仮想環境が立ち上がり、アプリケーションが実行される
 
-  ```sh
-  $ docker compose up -d
-  ```
+```sh
+$ docker compose -f docker-compose.yml --env-file ./.env.example -f docker-compose.supabase.yml up -d
+```
+
 3. VSCodeのフッターメニュー(ステータスバー)の「リモートウィンドウを開きます」をクリックする。
 
 4. メニューから「コンテナーで再度開く」を選択する。
 
-  - 開発コンテナ環境で本リポジトリが開き直され、必要なExtensionやEditorの設定がコンテナ上に読み込まれる。
+- 開発コンテナ環境で本リポジトリが開き直され、必要なExtensionやEditorの設定がコンテナ上に読み込まれる。
 
 5. 開発スタート
 
@@ -62,9 +63,9 @@
 
 1. VSCodeでリモート接続している状態で、以下のコマンドを実行する。
 
-    ```sh
-    $ npm run build
-    ```
+   ```sh
+   $ npm run build
+   ```
 
 ### 3.2. 実行方法
 
@@ -72,29 +73,30 @@
 
 1. VSCodeでリモート接続している状態で、以下のコマンドを実行する。
 
-    ```sh
-    $ npm run dev
-    ```
+   ```sh
+   $ npm run dev
+   ```
 
 ## 4. ライブラリ
 
 ### 4.1. JavaScript
 
-| ライブラリ名 | バージョン | 用途 | ライセンス |  参考 | 補足 |
-| --- | --- | --- | --- | --- | --- |
-| dotenv-cli | ^7.4.2| 環境変数を分けるため | MIT | [dotenv-cli](https://github.com/entropitor/dotenv-cli#readme) |  |
-| eslint-config-prettier | ^9.1.0 | ESLintとPrettierの競合を解決するため | MIT | [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) |  |
-| prettier | ^3.3.3 | コードフォーマットを整えるため | MIT | [prettier](https://prettier.io/) |  |
-| jotai | ^2.9.0 | Reactアプリケーションのための状態管理ライブラリで、コンポーネント間の状態共有を容易にするため | MIT | [Jotai](https://jotai.org/) |  |
-| next-auth | ^4.24.7 | ログイン機能を実装するため | ISC | [NextAuth.js](https://next-auth.js.org/) |  |
-| next-auth/prisma-adapter | ^1.0.7 | NextAuthとprismaの連携を行うため | ISC | [Auth.js](https://authjs.dev/) |  |
-| next-intl | ^3.17.2 | ローカライズ対応のため | MIT | [next-intl](https://next-intl-docs.vercel.app/) |  |
-| @typescript-eslint/eslint-plugin | ^8.5.0 | typescriptの推奨ルールを提供するため | View | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/) |  |
-| @typescript-eslint/parser | ^8.5.0 | typescriptを解析するため | View | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/) |  |
-| @uiw/react-md-editor | ^4.0.4 | マークダウンエディタを実装するため | MIT | [react-md-editor](https://uiwjs.github.io/react-md-editor/) |  |
-| superjson | ^2.2.1 | サーバーとクライアント同士でDate型などのやり取りを行うため | MIT | [superjson](https://github.com/flightcontrolhq/superjson) |  |
+| ライブラリ名                     | バージョン | 用途                                                                                          | ライセンス | 参考                                                                         | 補足 |
+| -------------------------------- | ---------- | --------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------- | ---- |
+| dotenv-cli                       | ^7.4.2     | 環境変数を分けるため                                                                          | MIT        | [dotenv-cli](https://github.com/entropitor/dotenv-cli#readme)                |      |
+| eslint-config-prettier           | ^9.1.0     | ESLintとPrettierの競合を解決するため                                                          | MIT        | [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) |      |
+| prettier                         | ^3.3.3     | コードフォーマットを整えるため                                                                | MIT        | [prettier](https://prettier.io/)                                             |      |
+| jotai                            | ^2.9.0     | Reactアプリケーションのための状態管理ライブラリで、コンポーネント間の状態共有を容易にするため | MIT        | [Jotai](https://jotai.org/)                                                  |      |
+| next-auth                        | ^4.24.7    | ログイン機能を実装するため                                                                    | ISC        | [NextAuth.js](https://next-auth.js.org/)                                     |      |
+| next-auth/prisma-adapter         | ^1.0.7     | NextAuthとprismaの連携を行うため                                                              | ISC        | [Auth.js](https://authjs.dev/)                                               |      |
+| next-intl                        | ^3.17.2    | ローカライズ対応のため                                                                        | MIT        | [next-intl](https://next-intl-docs.vercel.app/)                              |      |
+| @typescript-eslint/eslint-plugin | ^8.5.0     | typescriptの推奨ルールを提供するため                                                          | View       | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/)    |      |
+| @typescript-eslint/parser        | ^8.5.0     | typescriptを解析するため                                                                      | View       | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/)    |      |
+| @uiw/react-md-editor             | ^4.0.4     | マークダウンエディタを実装するため                                                            | MIT        | [react-md-editor](https://uiwjs.github.io/react-md-editor/)                  |      |
+| superjson                        | ^2.2.1     | サーバーとクライアント同士でDate型などのやり取りを行うため                                    | MIT        | [superjson](https://github.com/flightcontrolhq/superjson)                    |      |
 
 ### 4.2. DB
-| ライブラリ名 | バージョン | 用途 | ライセンス |  参考 | 補足 |
-| --- | --- | --- | --- | --- | --- |
-| prisma | ^5.17.0 | DBとの接続を行うため | Apatche-2.0 | [Prisma](https://www.prisma.io/) |  |
+
+| ライブラリ名 | バージョン | 用途                 | ライセンス  | 参考                             | 補足 |
+| ------------ | ---------- | -------------------- | ----------- | -------------------------------- | ---- |
+| prisma       | ^5.17.0    | DBとの接続を行うため | Apatche-2.0 | [Prisma](https://www.prisma.io/) |      |
