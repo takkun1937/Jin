@@ -39,21 +39,25 @@
 
 ### 2.2. 環境構築手順
 
-1. VSCodeで本リポジトリを開く
+1. 以下の事前準備を行っておく。
 
-2. コンソールから以下のコマンドを実行することで仮想環境が立ち上がり、アプリケーションが実行される
+   - [supabase ドキュメント](https://supabase.com/docs/guides/self-hosting/docker)の手順を参考に`git clone`を行い、`docker compose pull`でimageをpullしてくる。その後、クローンしたリポジトリの`supabase/docker/`にある`.env.example`ファイルを本リポジトリ直下にコピーする。
 
-```sh
-$ docker compose -f docker-compose.yml --env-file ./.env.example -f docker-compose.supabase.yml up -d
-```
+2. VSCodeで本リポジトリを開く
 
-3. VSCodeのフッターメニュー(ステータスバー)の「リモートウィンドウを開きます」をクリックする。
+3. コンソールから以下のコマンドを実行することで仮想環境が立ち上がり、アプリケーションが実行される
 
-4. メニューから「コンテナーで再度開く」を選択する。
+   ```sh
+   docker compose -f docker-compose.yml --env-file ./.env.example -f docker-compose.supabase.yml up -d
+   ```
 
-- 開発コンテナ環境で本リポジトリが開き直され、必要なExtensionやEditorの設定がコンテナ上に読み込まれる。
+4. VSCodeのフッターメニュー(ステータスバー)の「リモートウィンドウを開きます」をクリックする。
 
-5. 開発スタート
+5. メニューから「コンテナーで再度開く」を選択する。
+
+   - 開発コンテナ環境で本リポジトリが開き直され、必要なExtensionやEditorの設定がコンテナ上に読み込まれる。
+
+6. 開発スタート
 
 ## 3. ビルド・実行方法
 
@@ -64,7 +68,7 @@ $ docker compose -f docker-compose.yml --env-file ./.env.example -f docker-compo
 1. VSCodeでリモート接続している状態で、以下のコマンドを実行する。
 
    ```sh
-   $ npm run build
+   npm run build
    ```
 
 ### 3.2. 実行方法
@@ -74,7 +78,7 @@ $ docker compose -f docker-compose.yml --env-file ./.env.example -f docker-compo
 1. VSCodeでリモート接続している状態で、以下のコマンドを実行する。
 
    ```sh
-   $ npm run dev
+   npm run dev
    ```
 
 ## 4. ライブラリ
