@@ -41,14 +41,14 @@
 
 1. 以下の事前準備を行っておく。
 
-   - [supabase ドキュメント](https://supabase.com/docs/guides/self-hosting/docker)の手順を参考に`git clone`を行い、`docker compose pull`でimageをpullしてくる。その後、クローンしたリポジトリの`supabase/docker/`にある`.env.example`ファイルを本リポジトリ直下にコピーする。
+   - [supabase ドキュメント](https://supabase.com/docs/guides/self-hosting/docker)の手順を参考に`supabase`リポジトリをクローンし、`docker compose pull`コマンドでimageのpullを行う。
 
 2. VSCodeで本リポジトリを開く
 
-3. コンソールから以下のコマンドを実行することで仮想環境が立ち上がり、アプリケーションが実行される
+3. コンソールから以下のコマンドを実行することで仮想環境が立ち上がる。
 
    ```sh
-   docker compose -f docker-compose.yml --env-file ./.env.example -f docker-compose.supabase.yml up -d
+   ./scripts/start_dev_env.sh ${手順1でクローンしたsupabaseリポジトリのパス} --up
    ```
 
 4. VSCodeのフッターメニュー(ステータスバー)の「リモートウィンドウを開きます」をクリックする。
