@@ -4,16 +4,16 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: jin
-    entrypoint: "/bin/sh -c 'npm install && /bin/sh'"
+    entrypoint: "/bin/bash -c 'npm ci ; tail -f /dev/null'"
     init: true
     ports:
       - 3000:3000
     stdin_open: true
     tty: true
     volumes:
-      - .:/root/jin
-    working_dir: /root/jin
-    user: root
+      - .:/jin
+    working_dir: /jin
+    user: node
 
   # 開発用DB
   # jin_db:

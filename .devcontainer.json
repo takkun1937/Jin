@@ -1,8 +1,8 @@
 {
   "dockerComposeFile": ["./docker-compose.yml"],
   "service": "jin",
-  "remoteUser": "root",
-  "workspaceFolder": "/root/jin/",
+  "remoteUser": "node",
+  "workspaceFolder": "/jin",
   "shutdownAction": "none",
   "customizations": {
     "vscode": {
