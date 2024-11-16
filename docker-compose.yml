@@ -14,6 +14,12 @@ services:
       - .:/jin
     working_dir: /jin
     user: node
+    networks:
+      - supabase_default
+
+networks:
+  supabase_default:
+    external: true
 
   # 開発用DB
   # jin_db:
