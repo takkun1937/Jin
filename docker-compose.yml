@@ -20,20 +20,19 @@ services:
 networks:
   supabase_default:
     external: true
-
-  # 開発用DB
-  # jin_db:
-  #   build:
-  #     context: .
-  #     dockerfile: ./db/Dockerfile
-  #   container_name: jin_db
-  #   ports:
-  #     - 5432:5432
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_DB: jin_db
-  #   restart: always
-  #   volumes:
-  #     - ./db/data:/var/lib/postgresql/data
-  #     - ./db/pg_hba.conf:/etc/postgresql/main/pg_hba.conf
+# 開発用DB
+# jin_db:
+#   build:
+#     context: .
+#     dockerfile: ./db/Dockerfile
+#   container_name: jin_db
+#   ports:
+#     - 5432:5432
+#   environment:
+#     POSTGRES_USER: postgres
+#     POSTGRES_PASSWORD: password
+#     POSTGRES_DB: jin_db
+#   restart: always
+#   volumes:
+#     - ./db/data:/var/lib/postgresql/data
+#     - ./db/pg_hba.conf:/etc/postgresql/main/pg_hba.conf
