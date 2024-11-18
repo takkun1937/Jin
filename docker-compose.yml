@@ -4,30 +4,35 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: jin
-    entrypoint: "/bin/sh -c 'npm install && /bin/sh'"
+    entrypoint: "/bin/bash -c 'npm ci ; tail -f /dev/null'"
     init: true
     ports:
       - 3000:3000
     stdin_open: true
     tty: true
     volumes:
-      - .:/root/jin
-    working_dir: /root/jin
-    user: root
+      - .:/jin
+    working_dir: /jin
+    user: node
+    networks:
+      - supabase_default
 
-  # 開発用DB
-  # jin_db:
-  #   build:
-  #     context: .
-  #     dockerfile: ./db/Dockerfile
-  #   container_name: jin_db
-  #   ports:
-  #     - 5432:5432
-  #   environment:
-  #     POSTGRES_USER: postgres
-  #     POSTGRES_PASSWORD: password
-  #     POSTGRES_DB: jin_db
-  #   restart: always
-  #   volumes:
-  #     - ./db/data:/var/lib/postgresql/data
-  #     - ./db/pg_hba.conf:/etc/postgresql/main/pg_hba.conf
+networks:
+  supabase_default:
+    external: true
+# 開発用DB
+# jin_db:
+#   build:
+#     context: .
+#     dockerfile: ./db/Dockerfile
+#   container_name: jin_db
+#   ports:
+#     - 5432:5432
+#   environment:
+#     POSTGRES_USER: postgres
+#     POSTGRES_PASSWORD: password
+#     POSTGRES_DB: jin_db
+#   restart: always
+#   volumes:
+#     - ./db/data:/var/lib/postgresql/data
+#     - ./db/pg_hba.conf:/etc/postgresql/main/pg_hba.conf
