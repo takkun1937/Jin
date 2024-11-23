@@ -85,19 +85,25 @@
 
 ### 4.1. JavaScript
 
-| ライブラリ名                     | バージョン | 用途                                                                                          | ライセンス | 参考                                                                         | 補足 |
-| -------------------------------- | ---------- | --------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------- | ---- |
-| dotenv-cli                       | ^7.4.2     | 環境変数を分けるため                                                                          | MIT        | [dotenv-cli](https://github.com/entropitor/dotenv-cli#readme)                |      |
-| eslint-config-prettier           | ^9.1.0     | ESLintとPrettierの競合を解決するため                                                          | MIT        | [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) |      |
-| prettier                         | ^3.3.3     | コードフォーマットを整えるため                                                                | MIT        | [prettier](https://prettier.io/)                                             |      |
-| jotai                            | ^2.9.0     | Reactアプリケーションのための状態管理ライブラリで、コンポーネント間の状態共有を容易にするため | MIT        | [Jotai](https://jotai.org/)                                                  |      |
-| next-auth                        | ^4.24.7    | ログイン機能を実装するため                                                                    | ISC        | [NextAuth.js](https://next-auth.js.org/)                                     |      |
-| next-auth/prisma-adapter         | ^1.0.7     | NextAuthとprismaの連携を行うため                                                              | ISC        | [Auth.js](https://authjs.dev/)                                               |      |
-| next-intl                        | ^3.17.2    | ローカライズ対応のため                                                                        | MIT        | [next-intl](https://next-intl-docs.vercel.app/)                              |      |
-| @typescript-eslint/eslint-plugin | ^8.5.0     | typescriptの推奨ルールを提供するため                                                          | View       | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/)    |      |
-| @typescript-eslint/parser        | ^8.5.0     | typescriptを解析するため                                                                      | View       | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/)    |      |
-| @uiw/react-md-editor             | ^4.0.4     | マークダウンエディタを実装するため                                                            | MIT        | [react-md-editor](https://uiwjs.github.io/react-md-editor/)                  |      |
-| superjson                        | ^2.2.1     | サーバーとクライアント同士でDate型などのやり取りを行うため                                    | MIT        | [superjson](https://github.com/flightcontrolhq/superjson)                    |      |
+| ライブラリ名                     | バージョン     | 用途                                                                                          | ライセンス | 参考                                                                         | 補足 |
+| -------------------------------- | -------------- | --------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------------------------------------- | ---- |
+| dotenv-cli                       | ^7.4.2         | 環境変数を分けるため                                                                          | MIT        | [dotenv-cli](https://github.com/entropitor/dotenv-cli#readme)                |      |
+| eslint-config-prettier           | ^9.1.0         | ESLintとPrettierの競合を解決するため                                                          | MIT        | [eslint-config-prettier](https://github.com/prettier/eslint-config-prettier) |      |
+| prettier                         | ^3.3.3         | コードフォーマットを整えるため                                                                | MIT        | [prettier](https://prettier.io/)                                             |      |
+| jotai                            | ^2.9.0         | Reactアプリケーションのための状態管理ライブラリで、コンポーネント間の状態共有を容易にするため | MIT        | [Jotai](https://jotai.org/)                                                  |      |
+| next-auth                        | ^4.24.7        | ログイン機能を実装するため                                                                    | ISC        | [NextAuth.js](https://next-auth.js.org/)                                     |      |
+| next-auth/prisma-adapter         | ^1.0.7         | NextAuthとprismaの連携を行うため                                                              | ISC        | [Auth.js](https://authjs.dev/)                                               |      |
+| next-intl                        | ^3.17.2        | ローカライズ対応のため                                                                        | MIT        | [next-intl](https://next-intl-docs.vercel.app/)                              |      |
+| @typescript-eslint/eslint-plugin | ^8.5.0         | typescriptの推奨ルールを提供するため                                                          | View       | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/)    |      |
+| @typescript-eslint/parser        | ^8.5.0         | typescriptを解析するため                                                                      | View       | [typescript-eslint](https://typescript-eslint.io/packages/eslint-plugin/)    |      |
+| @uiw/react-md-editor             | ^4.0.4         | マークダウンエディタを実装するため                                                            | MIT        | [react-md-editor](https://uiwjs.github.io/react-md-editor/)                  |      |
+| superjson                        | ^2.2.1         | サーバーとクライアント同士でDate型などのやり取りを行うため                                    | MIT        | [superjson](https://github.com/flightcontrolhq/superjson)                    |      |
+| @tanstack/react-query            | ^5.56.2        | 非同期で状態管理を行うため                                                                    | MIT        | [Tanstack Query](https://tanstack.com/query/latest)                          |      |
+| @trpc/client                     | ^11.0.0-rc.502 | typescriptでサーバーとクライアントで型の共有を行うため                                        | MIT        | [tRPC Client](https://trpc.io/docs/client/vanilla)                           |      |
+| @trpc/next                       | ^11.0.0-rc.502 | typescriptでサーバーとクライアントで型の共有を行うため                                        | MIT        | [tRPC Next](https://trpc.io/docs/client/nextjs/setup)                        |      |
+| @trpc/react-query                | ^11.0.0-rc.502 | typescriptでサーバーとクライアントで型の共有を行うため                                        | MIT        | [tRPC React Query](https://trpc.io/docs/client/react)                        |      |
+| @trpc/server                     | ^11.0.0-rc.502 | typescriptでサーバーとクライアントで型の共有を行うため                                        | MIT        | [tRPC Server](https://trpc.io/docs/server/introduction)                      |      |
+| zod                              | ^3.23.8        | 型の安全性を高めるため                                                                        | MIT        | [Zod](https://zod.dev/)                                                      |      |
 
 ### 4.2. DB
 
