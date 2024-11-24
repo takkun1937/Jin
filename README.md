@@ -81,6 +81,20 @@
    npm run dev
    ```
 
+### 3.3. テスト実行方法
+
+1. VSCodeでリモート接続している状態で、以下のコマンドを実行する。
+
+   ```sh
+   // jestのテストコードを実行する場合
+   npm run test
+   ```
+
+   ```sh
+   // playwrightのテストコードを実行する場合
+   npx playwright test
+   ```
+
 ## 4. ライブラリ
 
 ### 4.1. JavaScript
