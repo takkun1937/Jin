@@ -1,7 +1,7 @@
 {
   "dockerComposeFile": ["./docker-compose.yml"],
   "service": "jin",
-  "remoteUser": "node",
+  "remoteUser": "root",
   "workspaceFolder": "/jin",
   "shutdownAction": "none",
   "customizations": {

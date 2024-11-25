@@ -13,7 +13,7 @@ services:
     volumes:
       - .:/jin
     working_dir: /jin
-    user: node
+    user: root
     networks:
       - supabase_default
 
