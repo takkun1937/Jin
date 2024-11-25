@@ -4,7 +4,7 @@ services:
       context: .
       dockerfile: Dockerfile
     container_name: jin
-    entrypoint: "/bin/bash -c 'npm ci ; tail -f /dev/null'"
+    entrypoint: "/bin/bash -c 'npm i ; tail -f /dev/null'"
     init: true
     ports:
       - 3000:3000
