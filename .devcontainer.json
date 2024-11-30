@@ -35,7 +35,8 @@
         "xabikos.JavaScriptSnippets",
         "infeng.vscode-react-typescript",
         "VisualStudioExptTeam.vscodeintellicode",
-        "bradlc.vscode-tailwindcss"
+        "bradlc.vscode-tailwindcss",
+        "ms-playwright.playwright"
       ]
     }
   }
