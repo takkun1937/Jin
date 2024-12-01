@@ -16,3 +16,8 @@ test('未ログイン状態で記事一覧と記事内容表示ページ間の�
   await page.getByRole('button', { name: 'Jin' }).click();
   await expect(page).toHaveURL('/');
 });
+
+test('未ログイン状態で新規記事作成画面遷移時のテスト', async ({ page }) => {
+  await page.goto(RoutePath.MyContentPost);
+  await expect(page).toHaveURL(new RegExp(`${RoutePath.Login}`));
+});
