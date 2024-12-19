@@ -12,6 +12,12 @@ const inter = Inter({ subsets: ['latin'] });
 export const metadata: Metadata = {
   title: 'Jin',
   description: 'Jin Frontend Specialist',
+  openGraph: {
+    type: 'website',
+    locale: 'en_US',
+    url: 'https://jin.com',
+    siteName: 'Jin',
+  },
 };
 
 export default async function RootLayout({
